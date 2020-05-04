@@ -1,5 +1,8 @@
 "
-The cleaner cleans smalltalk method code for duplication detection.
+Description
+--------------------
+
+I am a cleaner to clean smalltalk method code for replication detection
 "
 Class {
 	#name : #FamixRepSmalltalkCleaner,

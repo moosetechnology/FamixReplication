@@ -1,6 +1,10 @@
 "
-clearner for CPP language.
-To do: multiple line comments
+Description
+--------------------
+
+I am a clearner for CPP language.
+
+I still need to clean multiple line comments
 "
 Class {
 	#name : #FamixRepCPPCleaner,

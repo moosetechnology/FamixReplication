@@ -1,5 +1,9 @@
 "
-An abstract class that provides methods for cleaning the code before passing to the clone detector. Every language or a family of languages override these methods to implement the  logic of cleaning. 
+Description
+--------------------
+
+I am an cleaner providing methods to cleaning code before passing to the replication detector. Every language or a family of languages override these methods to implement the  logic of cleaning. 
+
 "
 Class {
 	#name : #FamixRepSourcesCleaner,
