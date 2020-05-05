@@ -6,6 +6,11 @@ FamixTSourceEntity >> addReplica: anObject [
 ]
 
 { #category : #'*FamixReplication' }
+FamixTSourceEntity >> clearReplicationCache [
+	self propertyNamed: #replicas put: OrderedCollection new
+]
+
+{ #category : #'*FamixReplication' }
 FamixTSourceEntity >> containsReplicas [
 	self replicas ifNotEmpty: [ ^ true ].
 
