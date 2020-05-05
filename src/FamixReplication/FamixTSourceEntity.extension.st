@@ -11,10 +11,59 @@ FamixTSourceEntity >> clearReplicationCache [
 ]
 
 { #category : #'*FamixReplication' }
+FamixTSourceEntity >> codeReplicationIntervals [
+	| text |
+	text := self completeText.
+	^ self replicas collect: [ :aCloneLocation | (text intervalOfLine: aCloneLocation startLine) first to: (text intervalOfLine: aCloneLocation endLine) last ]
+]
+
+{ #category : #'*FamixReplication' }
 FamixTSourceEntity >> containsReplicas [
 	self replicas ifNotEmpty: [ ^ true ].
 
 	^ self children anySatisfy: #containsReplicas
+]
+
+{ #category : #'*FamixReplication' }
+FamixTSourceEntity >> duplicationRate [
+	<MSEProperty: #duplicationRate type: #Number>
+	<MSEComment: 'Duplication Rate.'>
+	<derived>
+	^ self replicas
+		ifEmpty: [ 0 ]
+		ifNotEmpty: [ :cloneLocations | 
+			| accumulator usefulCloneLocations |
+			accumulator := 0.	
+				
+			"We remove the localisations already included in other localisations because this add noise."
+			usefulCloneLocations := cloneLocations
+				inject: OrderedCollection new
+				into: [ :res :cl | 
+					res detect: [ :loc | loc isSupersetOfReplica: cl ] ifNone: [ res add: cl ].
+					res ].	
+					
+			"We sort the fragments by startline to get the contiguous next to each other."
+			usefulCloneLocations sort: [ :a :b | a startLine < b startLine ].
+			usefulCloneLocations allButLast
+				do: [ :aLocation | 
+					(aLocation isContiguousWith: (usefulCloneLocations after: aLocation))
+						ifTrue: [ accumulator := accumulator + (usefulCloneLocations after: aLocation) startLine - aLocation startLine ]
+						ifFalse: [ accumulator := accumulator + aLocation length ] ].
+			accumulator := accumulator + usefulCloneLocations anyOne length.
+			accumulator / self numberOfLinesOfCode ]
+]
+
+{ #category : #'*FamixReplication' }
+FamixTSourceEntity >> mergePossibleDuplications [
+	"I try to merge the duplication and if I fail I return false."
+
+	| wasAbleToMergeAll |
+	wasAbleToMergeAll := true.
+	(self replicas collect: #replicatedFragment)
+		removeDuplicates;
+		combinations: 2 atATimeDo: [ :pair | (pair first mergeWith: pair second) ifFalse: [ wasAbleToMergeAll := false ] ].
+
+	^ wasAbleToMergeAll
 ]
 
 { #category : #'*FamixReplication' }

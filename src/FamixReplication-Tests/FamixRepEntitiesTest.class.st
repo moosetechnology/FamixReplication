@@ -32,10 +32,12 @@ FamixRepEntitiesTest >> testReplicatedFragment [
 
 { #category : #tests }
 FamixRepEntitiesTest >> testReplicationManager [
-	| fragment entity replica model |
-	entity := FamixTest1Class named: 'myProgram'.
+	| fragment class method replica model |
 	model := FamixTest1Model new.
-	model add: entity.
+	class := FamixTest1Class named: 'class' model: model.
+	method := FamixTest1Method named: 'method' model: model.
+	FamixTest1Method named: 'method2' model: model.
+	method parentType: class.
 	model replicationManager: FamixReplicationManager new.
 	fragment := FamixReplicatedFragment new
 		fragmentName: 'test';
@@ -43,13 +45,16 @@ FamixRepEntitiesTest >> testReplicationManager [
 	replica := FamixReplica new
 		startLine: 1;
 		endLine: 12;
-		entity: entity.
-	entity addReplica: replica.
+		entity: method.
+	method addReplica: replica.
 	fragment addReplica: replica.
 	self assert: replica replicatedFragment equals: fragment.
 	self assert: fragment replicas size equals: 1.
 	self assert: fragment entitiesContainingFragment size equals: 1.
-	self assert: model allContainersWithDuplicatedCode size equals: 1.
-	entity clearReplicationCache.
-	self assertEmpty: model allContainersWithDuplicatedCode
+	self assert: model allContainersWithDuplicatedCode size equals: 2.
+	self assert: model allBehaviouralsWithDuplicatedCode size equals: 1.
+	method clearReplicationCache.
+	model clearReplicationManager.
+	self assertEmpty: model allContainersWithDuplicatedCode.
+	self assertEmpty: model allBehaviouralsWithDuplicatedCode
 ]
