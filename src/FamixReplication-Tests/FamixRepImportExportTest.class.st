@@ -17,8 +17,8 @@ FamixRepImportExportTest >> export [
 
 { #category : #samples }
 FamixRepImportExportTest >> newModel [
-	^ FamixTest1Model new
-		add: (FamixTest1Class named: 'noname');
+	^ FamixRepTestModel new
+		add: (FamixRepTestClass named: 'noname');
 		addAll: self someEntities;
 		yourself
 ]

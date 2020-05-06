@@ -6,8 +6,8 @@ Class {
 
 { #category : #accessing }
 FamixRepDetectorTest >> mockEntityWith: sourceCode named: entityName [
-	^ (FamixTest1Method named: entityName)
-		sourceAnchor: (FamixTest1SourceTextAnchor source: sourceCode);
+	^ (FamixRepTestMethod named: entityName)
+		sourceAnchor: (FamixRepTestSourceTextAnchor source: sourceCode);
 		yourself
 ]
 
@@ -89,13 +89,13 @@ FamixRepDetectorTest >> testDetector [
 		from: 1
 		to: 5
 		in: nil
-		for: FamixTest1Method new.
+		for: FamixRepTestMethod new.
 	detector
 		registerToBucket: dupString lines
 		from: 1
 		to: 5
 		in: nil
-		for: FamixTest1Method new.
+		for: FamixRepTestMethod new.
 	self assert: detector getReplicatedFragments size equals: 1.
 	self assert: detector getReplicatedFragments first replicas size equals: 2
 ]

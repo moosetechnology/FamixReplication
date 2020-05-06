@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FamixRepEntitiesTest >> testEntitiesCache [
 	| entity |
-	entity := FamixTest1Class new.
+	entity := FamixRepTestClass new.
 	entity
 		addReplica:
 			(FamixReplica new
@@ -33,10 +33,10 @@ FamixRepEntitiesTest >> testReplicatedFragment [
 { #category : #tests }
 FamixRepEntitiesTest >> testReplicationManager [
 	| fragment class method replica model |
-	model := FamixTest1Model new.
-	class := FamixTest1Class named: 'class' model: model.
-	method := FamixTest1Method named: 'method' model: model.
-	FamixTest1Method named: 'method2' model: model.
+	model := FamixRepTestModel new.
+	class := FamixRepTestClass named: 'class' model: model.
+	method := FamixRepTestMethod named: 'method' model: model.
+	FamixRepTestMethod named: 'method2' model: model.
 	method parentType: class.
 	model replicationManager: FamixReplicationManager new.
 	fragment := FamixReplicatedFragment new
