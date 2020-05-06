@@ -89,13 +89,13 @@ FamixRepDetectorTest >> testDetector [
 		from: 1
 		to: 5
 		in: nil
-		for: Mock new.
+		for: FamixTest1Method new.
 	detector
 		registerToBucket: dupString lines
 		from: 1
 		to: 5
 		in: nil
-		for: Mock new.
+		for: FamixTest1Method new.
 	self assert: detector getReplicatedFragments size equals: 1.
 	self assert: detector getReplicatedFragments first replicas size equals: 2
 ]
