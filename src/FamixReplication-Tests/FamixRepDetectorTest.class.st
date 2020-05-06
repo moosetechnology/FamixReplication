@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 FamixRepDetectorTest >> mockEntityWith: sourceCode named: entityName [
 	^ (FamixTest1Method named: entityName)
-		sourceAnchor: (FAMIXSourceTextAnchor source: sourceCode);
+		sourceAnchor: (FamixTest1SourceTextAnchor source: sourceCode);
 		yourself
 ]
 
