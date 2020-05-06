@@ -38,7 +38,7 @@ BaselineOfFamixReplication >> famix: spec [
 	spec
 		baseline: 'Famix'
 		with: [ spec
-				loads: 'FamixTraits';
+				loads: 'BasicTraits';
 				repository: 'github://moosetechnology/Moose:development/src' ]
 ]
 
