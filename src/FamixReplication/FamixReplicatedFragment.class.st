@@ -152,9 +152,7 @@ FamixReplicatedFragment >> mergeWith: anotherFragment [
 					replica startLine: (replica startLine min: anotherReplica startLine).
 					replica endLine: (replica endLine max: anotherReplica endLine).
 					anotherFragment remove: anotherReplica ] ].
-	^ anotherFragment hasReplicas
-		ifFalse: [ true ]
-		ifTrue: [ false ]
+	^ anotherFragment hasReplicas not
 ]
 
 { #category : #testing }
