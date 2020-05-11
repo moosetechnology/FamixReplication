@@ -33,24 +33,26 @@ FamixTSourceEntity >> duplicationRate [
 		ifEmpty: [ 0 ]
 		ifNotEmpty: [ :cloneLocations | 
 			| accumulator usefulCloneLocations |
-			accumulator := 0.	
-				
+			accumulator := 0.
+
 			"We remove the localisations already included in other localisations because this add noise."
 			usefulCloneLocations := cloneLocations
 				inject: OrderedCollection new
 				into: [ :res :cl | 
-					res detect: [ :loc | loc isSupersetOfReplica: cl ] ifNone: [ res add: cl ].
-					res ].	
-					
+					res
+						detect: [ :loc | loc isSupersetOfReplica: cl ]
+						ifNone: [ res add: cl ].
+					res ].
+
 			"We sort the fragments by startline to get the contiguous next to each other."
-			usefulCloneLocations sort: [ :a :b | a startLine < b startLine ].
-			usefulCloneLocations allButLast
+			(usefulCloneLocations sort: #startLine ascending) allButLast
 				do: [ :aLocation | 
-					(aLocation isContiguousWith: (usefulCloneLocations after: aLocation))
-						ifTrue: [ accumulator := accumulator + (usefulCloneLocations after: aLocation) startLine - aLocation startLine ]
-						ifFalse: [ accumulator := accumulator + aLocation length ] ].
-			accumulator := accumulator + usefulCloneLocations anyOne length.
-			accumulator / self numberOfLinesOfCode ]
+					accumulator := accumulator
+						+
+							((aLocation isContiguousWith: (usefulCloneLocations after: aLocation))
+								ifTrue: [ (usefulCloneLocations after: aLocation) startLine - aLocation startLine ]
+								ifFalse: [ aLocation length ]) ].
+			(accumulator + usefulCloneLocations anyOne length) / self numberOfLinesOfCode ]
 ]
 
 { #category : #'*FamixReplication' }
