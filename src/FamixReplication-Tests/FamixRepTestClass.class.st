@@ -1,8 +1,8 @@
 Class {
 	#name : #FamixRepTestClass,
 	#superclass : #FamixRepTestEntity,
-	#traits : 'FamixTClass + FamixTSourceEntity + TDependencyQueries + TEntityMetaLevelDependency',
-	#classTraits : 'FamixTClass classTrait + FamixTSourceEntity classTrait + TDependencyQueries classTrait + TEntityMetaLevelDependency classTrait',
+	#traits : 'FamixTClass + FamixTSourceEntity',
+	#classTraits : 'FamixTClass classTrait + FamixTSourceEntity classTrait',
 	#category : #'FamixReplication-Tests-TestModel'
 }
 
