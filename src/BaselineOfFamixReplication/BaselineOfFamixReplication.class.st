@@ -22,7 +22,7 @@ BaselineOfFamixReplication >> baseline: spec [
 			spec
 				package: 'FamixReplication' with: [ spec requires: #('Famix' 'TinyLogger' 'STONCustomizer') ];
 				package: 'FamixReplication-CPP' with: [ spec requires: #('FamixReplication') ];
-				package: 'FamixReplication-Smalltalk' with: [ spec requires: #('FamixReplication') ];
+				package: 'FamixReplication-Smalltalk' with: [ spec requires: #('FamixReplication' 'FamixSmalltalk') ];
 				package: 'FamixReplication-Tests' with: [ spec requires: #('FamixReplication-CPP' 'FamixReplication-Smalltalk') ].
 
 			"Groups"
@@ -37,9 +37,10 @@ BaselineOfFamixReplication >> baseline: spec [
 BaselineOfFamixReplication >> famix: spec [
 	spec
 		baseline: 'Famix'
-		with: [ spec
+			with: [ spec
 				loads: 'BasicTraits';
-				repository: 'github://moosetechnology/Moose:development/src' ]
+				repository: 'github://moosetechnology/Moose:development/src' ];
+		project: 'FamixSmalltalk' copyFrom: 'Famix' with: [ spec loads: 'EntitiesSmalltalk' ]
 ]
 
 { #category : #accessing }

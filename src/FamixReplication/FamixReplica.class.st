@@ -202,9 +202,8 @@ FamixReplica >> name [
 
 { #category : #accessing }
 FamixReplica >> replicaFileName [
-	^ self fileAnchor isFileAnchor
-		ifTrue: [ self fileAnchor fileName ]
-		ifFalse: [ 'noName' ]	
+	self fileAnchor ifNotNil: [ :anchor | anchor isFileAnchor ifTrue: [ ^ anchor fileName ] ].
+	^ 'no replica file name'
 ]
 
 { #category : #accessing }

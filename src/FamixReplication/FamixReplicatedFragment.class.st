@@ -165,7 +165,11 @@ FamixReplicatedFragment >> mergeableWith: anotherFragment [
 
 { #category : #printing }
 FamixReplicatedFragment >> mooseNameOn: aStream [
-	aStream << self fragmentName ifNil: [ #noname ]
+	aStream
+		nextPutAll: 'Replicated fragment ';
+		nextPut: $[;
+		nextPutAll: (self fragmentName ifNil: [ #noname ]);
+		nextPut: $]
 ]
 
 { #category : #printing }
