@@ -8,7 +8,7 @@ MooseModel >> allBehaviouralsWithDuplicatedCode [
 		computedAs: [ 'Compute allBehaviouralsWithDuplicatedCode' record.
 
 			"Ensure the replication detection was run."
-			self replicationManager.
+			self replicationManager ifNil: [ MooseUnavailableMetric ].
 
 			self allModelBehaviourals select: #containsReplicas ]
 ]
@@ -16,20 +16,35 @@ MooseModel >> allBehaviouralsWithDuplicatedCode [
 { #category : #'*FamixReplication' }
 MooseModel >> allContainersWithDuplicatedCode [
 	<navigation: 'All containers with duplicated code'>
-	^ self allModelContainers select: #containsReplicas
+	^ self
+		lookUpPropertyNamed: #allContainersWithDuplicatedCode
+		computedAs: [ 'Compute allContainersWithDuplicatedCode' record.
+
+			"Ensure the replication detection was run."
+			self replicationManager ifNil: [ MooseUnavailableMetric ].
+
+			self allModelContainers select: #containsReplicas ]
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> allReplicatedFragments [
 	<navigation: 'All replicated fragments'>
-	^ self replicationManager replicatedFragments
+	^ self replicationManager ifNotNil: #replicatedFragments
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> clearReplicationManager [
 	'Clear replication manager' record.
 	self entitiesForReplicationDetection do: #clearReplicationCache.
-	self privateState removeProperty: #allBehaviouralsWithDuplicatedCode
+	self privateState removeProperty: #allBehaviouralsWithDuplicatedCode.
+	self privateState removeProperty: #allContainersWithDuplicatedCode
+]
+
+{ #category : #'*FamixReplication' }
+MooseModel >> defaultDetectionConfiguration [
+	"By default if we do not set a replication detection configuration, we do not run the detection"
+
+	^ nil
 ]
 
 { #category : #'*FamixReplication' }
@@ -74,16 +89,25 @@ MooseModel >> importReplicationFrom: file [
 { #category : #'*FamixReplication' }
 MooseModel >> initializeReplicationManager [
 	self clearReplicationManager.
-	'Initialize replication detector' record.
-	self replicationManager: (FamixRepDetector runOn: self entitiesForReplicationDetection with: self replicationDetectionConfiguration)
+
+	^ self replicationDetectionConfiguration
+		ifNil: [ 'No duplication configuration detected. Skip detection.' record.
+			nil ]
+		ifNotNil: [ :config | 
+			'Initialize replication detector' record.
+			(FamixRepDetector runOn: self entitiesForReplicationDetection with: config) in: [ :manager | self replicationManager: manager ] ]
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationDetectionConfiguration [
+	^ self privateState attributeAt: #replicationManager ifAbsentPut: [ self defaultDetectionConfiguration ]
+]
+
+{ #category : #'*FamixReplication' }
+MooseModel >> replicationDetectionConfiguration: aConfiguration [
 	"Example:
 	
-	replicationDetectionConfiguration
-	^ FamixRepConfiguration
+	FamixRepConfiguration
 		sourcesCleaner: FamixRepCPPCleaner new
 		minimumNumberOfReplicas: 2
 		ofLines: 100
@@ -91,15 +115,12 @@ MooseModel >> replicationDetectionConfiguration [
 		
 		"
 
-	self subclassResponsibility
+	self privateState attributeAt: #replicationManager put: aConfiguration
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationManager [
-	^ self privateState
-		attributeAt: #replicationManager
-		ifAbsent: [ self initializeReplicationManager.
-			self replicationManager ]
+	^ self privateState attributeAt: #replicationManager ifAbsent: [ self initializeReplicationManager ]
 ]
 
 { #category : #'*FamixReplication' }
