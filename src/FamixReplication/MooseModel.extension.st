@@ -125,5 +125,5 @@ MooseModel >> replicationManager [
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationManager: anObject [
-	self privateState attributeAt: #replicationManager put: anObject
+	^ self privateState attributeAt: #replicationManager put: anObject
 ]
