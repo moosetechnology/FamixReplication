@@ -36,8 +36,8 @@ MooseModel >> allReplicatedFragments [
 MooseModel >> clearReplicationManager [
 	'Clear replication manager' record.
 	self entitiesForReplicationDetection do: #clearReplicationCache.
-	self privateState removeProperty: #allBehaviouralsWithDuplicatedCode.
-	self privateState removeProperty: #allContainersWithDuplicatedCode
+	self privateState removeCache: #allBehaviouralsWithDuplicatedCode.
+	self privateState removeCache: #allContainersWithDuplicatedCode
 ]
 
 { #category : #'*FamixReplication' }
