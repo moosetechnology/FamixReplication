@@ -26,8 +26,8 @@ FamixTSourceEntity >> containsReplicas [
 
 { #category : #'*FamixReplication' }
 FamixTSourceEntity >> duplicationRate [
-	<MSEProperty: #duplicationRate type: #Number>
-	<MSEComment: 'Duplication Rate.'>
+	<FMProperty: #duplicationRate type: #Number>
+	<FMComment: 'Duplication Rate.'>
 	<derived>
 	^ self replicas
 		ifEmpty: [ 0 ]
@@ -75,8 +75,8 @@ FamixTSourceEntity >> removeReplica: aReplica [
 
 { #category : #'*FamixReplication' }
 FamixTSourceEntity >> replicas [
-	<MSEProperty: #replicas type: #FamixReplica>
-	<MSEComment: 'A collection of fragments of cloned code found in this program'>
+	<FMProperty: #replicas type: #FamixReplica>
+	<FMComment: 'A collection of fragments of cloned code found in this program'>
 	<derived>
 	^ self propertyNamed: #replicas ifAbsentPut: [ OrderedCollection new ]
 ]

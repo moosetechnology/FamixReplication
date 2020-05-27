@@ -24,7 +24,7 @@ Class {
 
 { #category : #meta }
 FamixReplicatedFragment class >> annotation [
-	<MSEClass: #ReplicatedFragment super: #MooseEntity >
+	<FMClass: #ReplicatedFragment super: #MooseEntity >
 	<package: #FamixReplication>
 ]
 

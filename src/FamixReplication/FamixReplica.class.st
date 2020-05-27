@@ -30,7 +30,7 @@ Class {
 
 { #category : #meta }
 FamixReplica class >> annotation [
-	<MSEClass: #Replica super: #MooseEntity >
+	<FMClass: #Replica super: #MooseEntity >
 	<package: #FamixReplication>
 ]
 
