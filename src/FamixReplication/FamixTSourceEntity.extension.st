@@ -19,6 +19,9 @@ FamixTSourceEntity >> codeReplicationIntervals [
 
 { #category : #'*FamixReplication' }
 FamixTSourceEntity >> containsReplicas [
+	<FMProperty: #containsReplicas type: #Boolean>
+	<derived>
+	<FMComment: 'Flag true if the entity contains duplication.'>
 	self replicas ifNotEmpty: [ ^ true ].
 
 	^ self children anySatisfy: #containsReplicas
