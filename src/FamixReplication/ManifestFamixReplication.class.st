@@ -6,3 +6,8 @@ Class {
 	#superclass : #PackageManifest,
 	#category : #'FamixReplication-Manifest'
 }
+
+{ #category : #asserting }
+ManifestFamixReplication class >> shouldBeIncludedByDefaultInMetamodelsWith: aCollectionOfPackages [
+	^ true
+]
