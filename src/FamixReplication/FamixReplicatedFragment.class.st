@@ -30,7 +30,7 @@ FamixReplicatedFragment class >> annotation [
 
 { #category : #ston }
 FamixReplicatedFragment class >> stonAllInstVarNames [
-	^ super stonAllInstVarNames \ {#mooseID . #state . #mooseModel}
+	^ super stonAllInstVarNames \ {#mooseID . #cache . #entityAttributes . #mooseName . #mooseModel}
 ]
 
 { #category : #ston }
