@@ -90,7 +90,7 @@ FamixReplica class >> stonAllInstVarNames [
 	"Here we need to keep the order of the variables because entity needs to be before fileAnchor, else it might be a problem during the import since the FileAnchor need to be imported AFTER the entity."
 
 	| toReject |
-	toReject := #(#mooseID #state #mooseModel #replicatedFragment).
+	toReject := #(#mooseID #cache #entityAttributes #mooseName #mooseModel #replicatedFragment).
 	^ super stonAllInstVarNames reject: [ :each | toReject includes: each ]
 ]
 

@@ -36,8 +36,8 @@ MooseModel >> allReplicatedFragments [
 MooseModel >> clearReplicationManager [
 	'Clear replication manager' record.
 	self entitiesForReplicationDetection do: #clearReplicationCache.
-	self privateState removeCache: #allBehaviouralsWithDuplicatedCode.
-	self privateState removeCache: #allContainersWithDuplicatedCode
+	self removeCache: #allBehaviouralsWithDuplicatedCode.
+	self removeCache: #allContainersWithDuplicatedCode
 ]
 
 { #category : #'*FamixReplication' }
@@ -100,7 +100,7 @@ MooseModel >> initializeReplicationManager [
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationDetectionConfiguration [
-	^ self privateState attributeAt: #replicationManager ifAbsentPut: [ self defaultDetectionConfiguration ]
+	^ self attributeAt: #replicationManager ifAbsentPut: [ self defaultDetectionConfiguration ]
 ]
 
 { #category : #'*FamixReplication' }
@@ -115,15 +115,15 @@ MooseModel >> replicationDetectionConfiguration: aConfiguration [
 		
 		"
 
-	self privateState attributeAt: #replicationManager put: aConfiguration
+	self attributeAt: #replicationManager put: aConfiguration
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationManager [
-	^ self privateState attributeAt: #replicationManager ifAbsent: [ self initializeReplicationManager ]
+	^ self attributeAt: #replicationManager ifAbsent: [ self initializeReplicationManager ]
 ]
 
 { #category : #'*FamixReplication' }
 MooseModel >> replicationManager: anObject [
-	^ self privateState attributeAt: #replicationManager put: anObject
+	^ self attributeAt: #replicationManager put: anObject
 ]
