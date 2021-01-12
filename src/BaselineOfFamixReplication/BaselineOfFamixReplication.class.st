@@ -39,7 +39,7 @@ BaselineOfFamixReplication >> famix: spec [
 		baseline: 'Famix'
 			with: [ spec
 				loads: 'BasicTraits';
-				repository: 'github://moosetechnology/Famix:development/src' ];
+				repository: 'github://moosetechnology/Famix:v1.x.x/src' ];
 		project: 'FamixSmalltalk' copyFrom: 'Famix' with: [ spec loads: 'EntitiesSmalltalk' ]
 ]
 
