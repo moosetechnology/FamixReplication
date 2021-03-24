@@ -9,28 +9,49 @@ Class {
 
 { #category : #baseline }
 BaselineOfFamixReplication >> baseline: spec [
+
 	<baseline>
-	spec
-		for: #common
-		do: [ "Dependencies"
-			self
-				famix: spec;
-				stonCustomizer: spec;
-				tinyLogger: spec.
+	spec for: #common do: [ 
+		"Dependencies"
+		self
+			stonCustomizer: spec;
+			tinyLogger: spec.
 
-			"Packages"
-			spec
-				package: 'FamixReplication' with: [ spec requires: #('Famix' 'TinyLogger' 'STONCustomizer') ];
-				package: 'FamixReplication-CPP' with: [ spec requires: #('FamixReplication') ];
-				package: 'FamixReplication-Smalltalk' with: [ spec requires: #('FamixReplication' 'FamixSmalltalk') ];
-				package: 'FamixReplication-Tests' with: [ spec requires: #('FamixReplication-CPP' 'FamixReplication-Smalltalk') ].
+		"Packages"
+		spec
+			package: 'FamixReplication'
+			with: [ spec requires: #( 'TinyLogger' 'STONCustomizer' ) ];
+			package: 'FamixReplication-CPP'
+			with: [ spec requires: #( 'FamixReplication' ) ];
+			package: 'FamixReplication-Smalltalk'
+			with: [ spec requires: #( 'FamixReplication' ) ];
+			package: 'FamixReplication-Tests' with: [ 
+				spec requires:
+						#( 'FamixReplication-CPP' 'FamixReplication-Smalltalk' ) ].
 
-			"Groups"
+		"If Famix is not already present"
+		spec for: #NeedsFamix do: [ 
+			self famix: spec.
 			spec
-				group: 'Core' with: #('FamixReplication');
-				group: 'Smalltalk' with: #('FamixReplication-Smalltalk');
-				group: 'CPP' with: #('FamixReplication-CPP');
-				group: 'Tests' with: #('FamixReplication-Tests') ]
+				package: 'FamixReplication' with: [ spec requires: #( 'Famix' ) ];
+				package: 'FamixReplication-Smalltalk'
+				with: [ spec requires: #( 'FamixReplication' 'FamixSmalltalk' ) ] ].
+
+		"Groups"
+		spec
+			group: 'Core' with: #( 'FamixReplication' );
+			group: 'Smalltalk' with: #( 'FamixReplication-Smalltalk' );
+			group: 'CPP' with: #( 'FamixReplication-CPP' );
+			group: 'Tests' with: #( 'FamixReplication-Tests' ) ]
+]
+
+{ #category : #accessing }
+BaselineOfFamixReplication >> customProjectAttributes [
+
+	^ RPackageOrganizer default packages
+		  detect: [ :package | package name = 'BaselineOfFamix' ]
+		  ifFound: [ #(  ) ]
+		  ifNone: [ #( #NeedsFamix ) ]
 ]
 
 { #category : #dependencies }
