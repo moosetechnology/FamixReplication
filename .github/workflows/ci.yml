@@ -10,14 +10,18 @@ on:
 
 jobs:
   build:
-    name: Pharo9
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: ${{ matrix.smalltalk }}-FamixReplication
+    strategy:
+      matrix:
+        smalltalk: [ Moose64-9.0, Moose64-8.0 ]
+    name: ${{ matrix.smalltalk }}
     steps:
       - uses: actions/checkout@v2
       - uses: hpi-swa/setup-smalltalkCI@v1
-        id: smalltalkci
         with:
-          smalltalk-image: Pharo64-9.0
-      - run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
+          smalltalk-version: ${{ matrix.smalltalk }}
+      - run: smalltalkci -s ${{ matrix.smalltalk }}
         shell: bash
         timeout-minutes: 15
