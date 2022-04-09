@@ -181,6 +181,12 @@ FamixReplica >> length [
 	^ self endLine - self startLine + 1
 ]
 
+{ #category : #'as yet unclassified' }
+FamixReplica >> miReplicaInspectorExtension [
+	<inspectorPresentationOrder: 1 title: 'Replica'>
+	^MiReplicatInspectorExtension on: self
+]
+
 { #category : #printing }
 FamixReplica >> mooseNameOn: stream [
 	stream
