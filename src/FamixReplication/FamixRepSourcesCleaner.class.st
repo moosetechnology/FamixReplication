@@ -11,17 +11,27 @@ Class {
 	#category : #'FamixReplication-Detection'
 }
 
-{ #category : #actions }
+{ #category : #private }
 FamixRepSourcesCleaner >> addCleanedVersionOf: aLine at: index to: lines [
 	"I clean a line and add it to the collection of lines if it's useful."
 
 	aLine ifEmpty: [ ^ self ].
 
-	(self clean: aLine) ifNotEmpty: [ :cleanedLine | (self isComment: cleanedLine) ifFalse: [ lines add: index -> cleanedLine ] ]
+	(self cleanLine: aLine) ifNotEmpty: [ :cleanedLine | (self isComment: cleanedLine) ifFalse: [ lines add: index -> cleanedLine ] ]
 ]
 
 { #category : #actions }
-FamixRepSourcesCleaner >> clean: text [
+FamixRepSourcesCleaner >> cleanCommentLines: aCollectionOfLines [
+	"Clean end-of-line comments and empty lines
+	This could be more elegant but be careful, I need to be fast and doing a collect with index then a reject is longer."
+	| lines |
+	lines := OrderedCollection new.
+	aCollectionOfLines doWithIndex: [ :aLine :index | self addCleanedVersionOf: aLine at: index to: lines ].
+	^ lines
+]
+
+{ #category : #private }
+FamixRepSourcesCleaner >> cleanLine: text [
 	^ {(String space).
 	(String tab).
 	(String cr).
@@ -30,12 +40,51 @@ FamixRepSourcesCleaner >> clean: text [
 ]
 
 { #category : #actions }
-FamixRepSourcesCleaner >> getCleanLinesOf: aCollectionOfLines [
-	| lines |
-	"This could be more elegant but be careful, I need to be fast and doing a collect with index then a reject is longer."
-	lines := OrderedCollection new.
-	aCollectionOfLines doWithIndex: [ :aLine :index | self addCleanedVersionOf: aLine at: index to: lines ].
-	^ lines
+FamixRepSourcesCleaner >> cleanMultilineComments: aText [
+	"removes all comments possibly spanning several lines without changing the number of lines
+	 (a multi line comment becomes a set of empty lines)
+	This implementation is inefficient"
+	| current next |
+	current := 1.
+	^String streamContents: [ :stream |
+		[ (next := (aText findString: self multilineCommentStart startingAt: current)) > 0]
+		whileTrue: [
+			self copy: aText from: current to: next - 1 into: stream.
+			current := next + (self multilineCommentStart size).
+			next := aText findString: self multilineCommentEnd startingAt: current.
+			self copyAsEmptyLines: aText from: current to: next - 1 into: stream.
+			current := next + (self multilineCommentEnd size).
+		].
+		self copy: aText from: current toEndInto: stream.
+	]
+
+]
+
+{ #category : #actions }
+FamixRepSourcesCleaner >> cleanedTextLines: aText [
+	^self cleanCommentLines: (self cleanMultilineComments: aText) lines
+]
+
+{ #category : #private }
+FamixRepSourcesCleaner >> copy: aString from: start to: end into: aStream [
+	start to: end do: [ :i | aStream nextPut: (aString at: i) ].
+	^aStream 
+]
+
+{ #category : #private }
+FamixRepSourcesCleaner >> copy: aString from: start toEndInto: aStream [
+	start to: aString size do: [ :i | aStream nextPut: (aString at: i) ].
+	^aStream 
+]
+
+{ #category : #private }
+FamixRepSourcesCleaner >> copyAsEmptyLines: aString from: start to: end into: aStream [
+	start to: end do: [ :i || c | 
+		c := aString at: i.
+		( { Character cr . Character lf } includes: c)
+		ifTrue: [ aStream nextPut: c]
+	].
+	^aStream 
 ]
 
 { #category : #initialization }
@@ -44,8 +93,18 @@ FamixRepSourcesCleaner >> initialize [
 	self reset
 ]
 
-{ #category : #actions }
+{ #category : #private }
 FamixRepSourcesCleaner >> isComment: aLine [
+	self subclassResponsibility 
+]
+
+{ #category : #actions }
+FamixRepSourcesCleaner >> multilineCommentEnd [
+	self subclassResponsibility 
+]
+
+{ #category : #actions }
+FamixRepSourcesCleaner >> multilineCommentStart [
 	self subclassResponsibility 
 ]
 

@@ -24,7 +24,17 @@ FamixRepSourceCleanerTest >> setUp [
 ]
 
 { #category : #tests }
-FamixRepSourceCleanerTest >> testClean [
+FamixRepSourceCleanerTest >> testCleanCommentLines [
+	self subclassResponsibility
+]
+
+{ #category : #tests }
+FamixRepSourceCleanerTest >> testCleanLine [
+	self subclassResponsibility
+]
+
+{ #category : #tests }
+FamixRepSourceCleanerTest >> testCleanMultilineComments [
 	self subclassResponsibility
 ]
 
