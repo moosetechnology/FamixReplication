@@ -11,8 +11,8 @@ Class {
 }
 
 { #category : #actions }
-FamixRepSmalltalkCleaner >> clean: aText [
-	^ (super clean: aText) copyWithRegex:  '\".*\"'  matchesReplacedWith: ''
+FamixRepSmalltalkCleaner >> cleanLine: aText [
+	^ (super cleanLine: aText) copyWithRegex:  '\".*\"'  matchesReplacedWith: ''
 ]
 
 { #category : #actions }
@@ -22,4 +22,14 @@ FamixRepSmalltalkCleaner >> isComment: aLine [
 	but just returning false because a comment line will be empty because cleaner removes everything within double qoutes and hence not considered by the detector"
 
 	^ false
+]
+
+{ #category : #actions }
+FamixRepSmalltalkCleaner >> multilineCommentEnd [
+	^'"'
+]
+
+{ #category : #actions }
+FamixRepSmalltalkCleaner >> multilineCommentStart [
+	^'"'
 ]

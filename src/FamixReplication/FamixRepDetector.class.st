@@ -61,7 +61,7 @@ FamixRepDetector >> detectReplicatedFragmentsOf: aSourcedEntity [
 
 { #category : #accessing }
 FamixRepDetector >> detectReplicatedFragmentsOf: anEntity sourceAnchor: sourceAnchor [
-	(self sourcesCleaner getCleanLinesOf: sourceAnchor sourceText lines)
+	(self sourcesCleaner cleanedTextLines: sourceAnchor sourceText)
 		ifNotEmpty: [ :lines | 
 			configuration minimumNumberOfLines > lines size ifTrue: [ ^ self ].
 
