@@ -11,3 +11,15 @@ Class {
 FamixRepFakeCleaner >> isComment: aLine [
 	^ false
 ]
+
+{ #category : #actions }
+FamixRepFakeCleaner >> multilineCommentEnd [
+
+	^ '"'
+]
+
+{ #category : #actions }
+FamixRepFakeCleaner >> multilineCommentStart [
+
+	^ '"'
+]
