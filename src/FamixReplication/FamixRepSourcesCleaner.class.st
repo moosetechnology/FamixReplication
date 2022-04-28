@@ -41,23 +41,35 @@ FamixRepSourcesCleaner >> cleanLine: text [
 
 { #category : #actions }
 FamixRepSourcesCleaner >> cleanMultilineComments: aText [
+
 	"removes all comments possibly spanning several lines without changing the number of lines
 	 (a multi line comment becomes a set of empty lines)
 	This implementation is inefficient"
-	| current next |
-	current := 1.
-	^String streamContents: [ :stream |
-		[ (next := (aText findString: self multilineCommentStart startingAt: current)) > 0]
-		whileTrue: [
-			self copy: aText from: current to: next - 1 into: stream.
-			current := next + (self multilineCommentStart size).
-			next := aText findString: self multilineCommentEnd startingAt: current.
-			self copyAsEmptyLines: aText from: current to: next - 1 into: stream.
-			current := next + (self multilineCommentEnd size).
-		].
-		self copy: aText from: current toEndInto: stream.
-	]
 
+	| current next |
+	self multilineCommentStart ifNil: [ ^ aText ].
+	current := 1.
+	^ String streamContents: [ :stream | 
+		  [ 
+		  (next := aText
+			           findString: self multilineCommentStart
+			           startingAt: current) > 0 ] whileTrue: [ 
+			  self
+				  copy: aText
+				  from: current
+				  to: next - 1
+				  into: stream.
+			  current := next + self multilineCommentStart size.
+			  next := aText
+				          findString: self multilineCommentEnd
+				          startingAt: current.
+			  self
+				  copyAsEmptyLines: aText
+				  from: current
+				  to: next - 1
+				  into: stream.
+			  current := next + self multilineCommentEnd size ].
+		  self copy: aText from: current toEndInto: stream ]
 ]
 
 { #category : #actions }

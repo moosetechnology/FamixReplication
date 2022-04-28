@@ -112,22 +112,28 @@ FamixRepDetector >> registerToBucket: aCollectionOfLines from: firstLineIndex to
 
 { #category : #execution }
 FamixRepDetector >> runOn: aCollection [
+
 	| manager |
 	self
-		execute: [
-			('Begin to register the fragments for ' , aCollection size asString , ' entities.') record.
+		execute: [ 
+			('Begin to register the fragments for ' , aCollection size asString
+			 , ' entities.') record.
 
-			(self selectEntitiesWithEnoughInformationFrom: aCollection) do: [ :anEntity | self detectReplicatedFragmentsOf: anEntity ].
+			(self selectEntitiesWithEnoughInformationFrom: aCollection) do: [ 
+				:anEntity | self detectReplicatedFragmentsOf: anEntity ].
 
 			manager := FamixReplicationManager new
-				replicatedFragments: self getReplicatedFragments;
-				configuration: self configuration;
-				mergeOverlappingFragments;
-				expandContiguousFragments;
-				resetFragmentNames; "We reinit the names because some numbers might have been merge and there is an index in the fragment name."
-				yourself.
+				           replicatedFragments: self getReplicatedFragments;
+				           configuration: self configuration;
+				           mergeOverlappingFragments;
+				           expandContiguousFragments;
+				           resetFragmentNames;
+				           "We reinit the names because some numbers might have been merge and there is an index in the fragment name."
+					           yourself.
 
-			('Duplication end with ' , manager replicatedFragments size asString , ' fragments.') record ]
+			('Duplication end with '
+			 , manager replicatedFragments size asString , ' fragments.')
+				record ]
 		recordedAs: 'Duplication computation'.
 
 	^ manager
