@@ -26,10 +26,14 @@ FamixRepSmalltalkCleaner >> isComment: aLine [
 
 { #category : #actions }
 FamixRepSmalltalkCleaner >> multilineCommentEnd [
-	^'"'
+	"There are no special marker for multiline comments in Pharo"
+	^ nil
 ]
 
 { #category : #actions }
 FamixRepSmalltalkCleaner >> multilineCommentStart [
-	^'"'
+
+	"There are no special marker for multiline comments in Pharo"
+
+	^ nil
 ]
