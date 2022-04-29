@@ -10,6 +10,11 @@ Class {
 	#category : #'FamixReplication-Smalltalk'
 }
 
+{ #category : #displaying }
+FamixRepSmalltalkCleaner class >> displayString [
+	^'Smalltalk comments'
+]
+
 { #category : #actions }
 FamixRepSmalltalkCleaner >> cleanLine: aText [
 	^ (super cleanLine: aText) copyWithRegex:  '\".*\"'  matchesReplacedWith: ''
