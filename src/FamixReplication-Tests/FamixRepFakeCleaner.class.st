@@ -7,6 +7,12 @@ Class {
 	#category : #'FamixReplication-Tests-Detection'
 }
 
+{ #category : #testing }
+FamixRepFakeCleaner class >> availableForUser [
+	
+	^false
+]
+
 { #category : #actions }
 FamixRepFakeCleaner >> isComment: aLine [
 	^ false

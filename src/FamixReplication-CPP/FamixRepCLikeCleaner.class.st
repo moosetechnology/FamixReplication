@@ -8,6 +8,11 @@ Class {
 	#category : #'FamixReplication-CPP'
 }
 
+{ #category : #displaying }
+FamixRepCLikeCleaner class >> displayString [
+	^'C like comments'
+]
+
 { #category : #actions }
 FamixRepCLikeCleaner >> cleanLine: aText [
 	"a++ //asd -> a++"

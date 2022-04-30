@@ -11,6 +11,22 @@ Class {
 	#category : #'FamixReplication-Detection'
 }
 
+{ #category : #accessing }
+FamixRepSourcesCleaner class >> allAvailableCleaners [
+	^self withAllSubclasses select: [:cleaner | cleaner availableForUser]
+]
+
+{ #category : #testing }
+FamixRepSourcesCleaner class >> availableForUser [ 
+
+	^ self ~= FamixRepSourcesCleaner 
+]
+
+{ #category : #displaying }
+FamixRepSourcesCleaner class >> displayString [
+	self subclassResponsibility
+]
+
 { #category : #private }
 FamixRepSourcesCleaner >> addCleanedVersionOf: aLine at: index to: lines [
 	"I clean a line and add it to the collection of lines if it's useful."
