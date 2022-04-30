@@ -58,6 +58,16 @@ FamixRepCLikeCleanerTest >> testCleanMultilineCommentsOneLine [
 ]
 
 { #category : #tests }
+FamixRepCLikeCleanerTest >> testCleanMultilineCommentsWithError [
+	self assert: (cleaner cleanMultilineComments: 'cout << "this is not a comment /*";
+doSomthingElse(2);
+')
+equals: 'cout << "this is not a comment /*";
+doSomthingElse(2);
+'
+]
+
+{ #category : #tests }
 FamixRepCLikeCleanerTest >> testIsComment [
 	self deny: (cleaner isComment: 'cout << 1 //this is a comment') description: 'Comment in code does not make a line comment'
 ]

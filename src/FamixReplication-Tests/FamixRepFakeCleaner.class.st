@@ -17,15 +17,3 @@ FamixRepFakeCleaner class >> availableForUser [
 FamixRepFakeCleaner >> isComment: aLine [
 	^ false
 ]
-
-{ #category : #actions }
-FamixRepFakeCleaner >> multilineCommentEnd [
-
-	^nil
-]
-
-{ #category : #actions }
-FamixRepFakeCleaner >> multilineCommentStart [
-
-	^nil
-]

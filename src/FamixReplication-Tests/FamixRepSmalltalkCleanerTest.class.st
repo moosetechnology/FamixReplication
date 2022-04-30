@@ -17,16 +17,21 @@ FamixRepSmalltalkCleanerTest >> testCleanLine [
 ]
 
 { #category : #tests }
+FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentError [
+	self assert: (cleaner cleanMultilineComments: 'cout << ''this is not a comment " ''.')
+equals: 'cout << ''this is not a comment " ''.'
+]
+
+{ #category : #tests }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineComments [
-	"In smalltalk, there are no multiline comments, they are just comments"
 	self assert: (cleaner cleanMultilineComments: 'cout + 1.
 "this is a 
  multi lines comment"
 cin + 2.
 ')
 equals: 'cout + 1.
-"this is a 
- multi lines comment"
+
+
 cin + 2.
 '
 
@@ -42,10 +47,9 @@ FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsNone [
 
 { #category : #tests }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsOneLine [
-	"In smalltalk, there are no multiline comments, they are just comments"
 	self
 		assert: (cleaner cleanMultilineComments: 'cout + "a comment" 1')
-		equals: 'cout + "a comment" 1'
+		equals: 'cout +  1'
 
 ]
 
