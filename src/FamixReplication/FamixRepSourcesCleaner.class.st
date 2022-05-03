@@ -11,6 +11,22 @@ Class {
 	#category : #'FamixReplication-Detection'
 }
 
+{ #category : #accessing }
+FamixRepSourcesCleaner class >> allAvailableCleaners [
+	^self withAllSubclasses select: [:cleaner | cleaner availableForUser]
+]
+
+{ #category : #testing }
+FamixRepSourcesCleaner class >> availableForUser [ 
+
+	^ self ~= FamixRepSourcesCleaner 
+]
+
+{ #category : #displaying }
+FamixRepSourcesCleaner class >> displayString [
+	self subclassResponsibility
+]
+
 { #category : #private }
 FamixRepSourcesCleaner >> addCleanedVersionOf: aLine at: index to: lines [
 	"I clean a line and add it to the collection of lines if it's useful."
@@ -41,35 +57,10 @@ FamixRepSourcesCleaner >> cleanLine: text [
 
 { #category : #actions }
 FamixRepSourcesCleaner >> cleanMultilineComments: aText [
-
-	"removes all comments possibly spanning several lines without changing the number of lines
+	"should remove all comments possibly spanning several lines without changing the number of lines
 	 (a multi line comment becomes a set of empty lines)
-	This implementation is inefficient"
-
-	| current next |
-	self multilineCommentStart ifNil: [ ^ aText ].
-	current := 1.
-	^ String streamContents: [ :stream | 
-		  [ 
-		  (next := aText
-			           findString: self multilineCommentStart
-			           startingAt: current) > 0 ] whileTrue: [ 
-			  self
-				  copy: aText
-				  from: current
-				  to: next - 1
-				  into: stream.
-			  current := next + self multilineCommentStart size.
-			  next := aText
-				          findString: self multilineCommentEnd
-				          startingAt: current.
-			  self
-				  copyAsEmptyLines: aText
-				  from: current
-				  to: next - 1
-				  into: stream.
-			  current := next + self multilineCommentEnd size ].
-		  self copy: aText from: current toEndInto: stream ]
+	This is language depend so the default does nothing"
+	^aText
 ]
 
 { #category : #actions }
@@ -107,16 +98,6 @@ FamixRepSourcesCleaner >> initialize [
 
 { #category : #private }
 FamixRepSourcesCleaner >> isComment: aLine [
-	self subclassResponsibility 
-]
-
-{ #category : #actions }
-FamixRepSourcesCleaner >> multilineCommentEnd [
-	self subclassResponsibility 
-]
-
-{ #category : #actions }
-FamixRepSourcesCleaner >> multilineCommentStart [
 	self subclassResponsibility 
 ]
 

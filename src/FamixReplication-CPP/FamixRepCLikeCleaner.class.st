@@ -4,9 +4,14 @@ I am a clearner for C-like languages, i.e. having comments `/* ... */` and `// .
 "
 Class {
 	#name : #FamixRepCLikeCleaner,
-	#superclass : #FamixRepSourcesCleaner,
+	#superclass : #FamixRepPairedCommentsCleaner,
 	#category : #'FamixReplication-CPP'
 }
+
+{ #category : #displaying }
+FamixRepCLikeCleaner class >> displayString [
+	^'C like comments'
+]
 
 { #category : #actions }
 FamixRepCLikeCleaner >> cleanLine: aText [
@@ -23,11 +28,11 @@ FamixRepCLikeCleaner >> isComment: aLine [
 ]
 
 { #category : #actions }
-FamixRepCLikeCleaner >> multilineCommentEnd [
+FamixRepCLikeCleaner >> multilineCommentCloser [
 	^'*/'
 ]
 
 { #category : #actions }
-FamixRepCLikeCleaner >> multilineCommentStart [
+FamixRepCLikeCleaner >> multilineCommentOpener [
 	^'/*'
 ]
