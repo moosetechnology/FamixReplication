@@ -105,21 +105,6 @@ FamixReplicatedFragment >> getReplicaCorrespondingTo: aReplica [
 				ifNone: [ nil ] ]
 ]
 
-{ #category : #printing }
-FamixReplicatedFragment >> gtInspectorItemsIn: composite [
-	<gtInspectorPresentationOrder: 0>
-	^ composite fastList
-		title: 'Replicas';
-		display: [ self replicas ];
-		beMultiple;
-		format: [ :each | GTObjectPrinter asTruncatedTextFrom: each ];
-		send: [ :result | 
-			result
-				ifNotNil: [ result size = 1
-						ifTrue: [ result anyOne ]
-						ifFalse: [ self species withAll: result ] ] ]
-]
-
 { #category : #testing }
 FamixReplicatedFragment >> hasContiguousReplicaWith: aReplica [
 	^ self replicas anySatisfy: [ :anotherReplica | aReplica isContiguousWith: anotherReplica ]
