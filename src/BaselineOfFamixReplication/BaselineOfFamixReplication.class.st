@@ -56,12 +56,20 @@ BaselineOfFamixReplication >> customProjectAttributes [
 
 { #category : #dependencies }
 BaselineOfFamixReplication >> famix: spec [
+
+	| version |
+	version := 'master'.
+	spec for: #( #'pharo10.x' #'pharo9.x' ) do: [ version := 'v1.x.x' ].
+	
 	spec
-		baseline: 'Famix'
-			with: [ spec
+		baseline: 'Famix' with: [
+			spec
 				loads: 'BasicTraits';
-				repository: 'github://moosetechnology/Famix:v1.x.x/src' ];
-		project: 'FamixSmalltalk' copyFrom: 'Famix' with: [ spec loads: 'EntitiesSmalltalk' ]
+				repository:
+					('github://moosetechnology/Famix:{1}/src' format: { version }) ];
+		project: 'FamixSmalltalk'
+		copyFrom: 'Famix'
+		with: [ spec loads: 'EntitiesSmalltalk' ]
 ]
 
 { #category : #accessing }
