@@ -58,7 +58,7 @@ BaselineOfFamixReplication >> customProjectAttributes [
 BaselineOfFamixReplication >> famix: spec [
 
 	| version |
-	version := 'master'.
+	version := 'development'.
 	spec for: #( #'pharo10.x' #'pharo9.x' ) do: [ version := 'v1.x.x' ].
 	
 	spec
