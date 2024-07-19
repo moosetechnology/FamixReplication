@@ -48,10 +48,8 @@ BaselineOfFamixReplication >> baseline: spec [
 { #category : #accessing }
 BaselineOfFamixReplication >> customProjectAttributes [
 
-	^ RPackageOrganizer default packages
-		  detect: [ :package | package name = 'BaselineOfFamix' ]
-		  ifFound: [ #(  ) ]
-		  ifNone: [ #( #NeedsFamix ) ]
+	'BaselineOfFamix' asPackageIfAbsent: [ ^ #( #NeedsFamix ) ].
+	^ #( )
 ]
 
 { #category : #dependencies }
