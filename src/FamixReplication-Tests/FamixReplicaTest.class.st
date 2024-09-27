@@ -1,10 +1,12 @@
 Class {
-	#name : #FamixReplicaTest,
-	#superclass : #TestCase,
-	#category : #'FamixReplication-Tests-Entities'
+	#name : 'FamixReplicaTest',
+	#superclass : 'TestCase',
+	#category : 'FamixReplication-Tests-Entities',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Entities'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousApreviousB [
 	| a b entity |
 	entity := FamixRepTestMethod new.
@@ -13,7 +15,7 @@ FamixReplicaTest >> testContiguousApreviousB [
 	self assert: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousApreviousBdifferentsEntities [
 	| a b entity1 entity2 |
 	entity1 := FamixRepTestMethod new.
@@ -23,7 +25,7 @@ FamixReplicaTest >> testContiguousApreviousBdifferentsEntities [
 	self deny: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousApreviousBwithUnion [
 	| a b entity |
 	entity := FamixRepTestMethod new.
@@ -32,7 +34,7 @@ FamixReplicaTest >> testContiguousApreviousBwithUnion [
 	self assert: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousBpreviousA [
 	| a b entity |
 	entity := FamixRepTestMethod new.
@@ -41,7 +43,7 @@ FamixReplicaTest >> testContiguousBpreviousA [
 	self assert: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousBpreviousAwithUnion [
 	| a b entity |
 	entity := FamixRepTestMethod new.
@@ -50,7 +52,7 @@ FamixReplicaTest >> testContiguousBpreviousAwithUnion [
 	self assert: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testContiguousDifferentLength [
 	| a b entity |
 	"For the moment, we do not consider the cases where the lengths of the merging fragments is different. Added this test to understand the behavior in case of different lengths"
@@ -60,7 +62,7 @@ FamixReplicaTest >> testContiguousDifferentLength [
 	self assert: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testNotContiguousApreviousB [
 	| a b entity |
 	entity := FamixRepTestMethod new.
@@ -69,7 +71,7 @@ FamixReplicaTest >> testNotContiguousApreviousB [
 	self deny: (a isContiguousWith: b)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicaTest >> testNotContiguousBpreviousA [
 	| a b entity |
 	entity := FamixRepTestMethod new.

@@ -1,21 +1,23 @@
 Class {
-	#name : #FamixRepImportExportTest,
-	#superclass : #FamixRepDetectorTest,
+	#name : 'FamixRepImportExportTest',
+	#superclass : 'FamixRepDetectorTest',
 	#instVars : [
 		'dupSys',
 		'file'
 	],
-	#category : #'FamixReplication-Tests-Import-Export'
+	#category : 'FamixReplication-Tests-Import-Export',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Import-Export'
 }
 
-{ #category : #samples }
+{ #category : 'samples' }
 FamixRepImportExportTest >> export [
 	SCExporter export: dupSys inFile: file.
 	self assert: file exists.
 	self denyEmpty: file contents
 ]
 
-{ #category : #samples }
+{ #category : 'samples' }
 FamixRepImportExportTest >> newModel [
 	^ FamixRepTestModel new
 		add: (FamixRepTestClass named: 'noname');
@@ -23,7 +25,7 @@ FamixRepImportExportTest >> newModel [
 		yourself
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 FamixRepImportExportTest >> setUp [
 	super setUp.
 	dupSys := FamixRepDetector
@@ -37,7 +39,7 @@ FamixRepImportExportTest >> setUp [
 	file := FileSystem memory / 'export.ston'
 ]
 
-{ #category : #samples }
+{ #category : 'samples' }
 FamixRepImportExportTest >> someEntities [
 	^ {
 		self
@@ -60,14 +62,14 @@ FamixRepImportExportTest >> someEntities [
 		}
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepImportExportTest >> testDuplicationExport [
 	self export.
 	self assert: file exists.
 	self denyEmpty: file contents
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepImportExportTest >> testDuplicationImport [
 	| importedSys |
 	self export.
@@ -78,7 +80,7 @@ FamixRepImportExportTest >> testDuplicationImport [
 	self assert: importedSys replicatedFragments first replicas first endLine equals: dupSys replicatedFragments first replicas first endLine
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepImportExportTest >> testDuplicationImportSysAttribs [
 	| configuration |
 	self export.

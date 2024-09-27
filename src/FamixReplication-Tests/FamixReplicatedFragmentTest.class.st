@@ -1,10 +1,12 @@
 Class {
-	#name : #FamixReplicatedFragmentTest,
-	#superclass : #TestCase,
-	#category : #'FamixReplication-Tests-Entities'
+	#name : 'FamixReplicatedFragmentTest',
+	#superclass : 'TestCase',
+	#category : 'FamixReplication-Tests-Entities',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Entities'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicatedFragmentTest >> testFragmentNotMergeableWithItself [
 	| frag1 entity1 |
 	entity1 := FamixRepTestMethod new.
@@ -14,7 +16,7 @@ FamixReplicatedFragmentTest >> testFragmentNotMergeableWithItself [
 	self deny: (frag1 mergeableWith: frag1)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicatedFragmentTest >> testMerge [
 	| anchor frag1 frag2 entity1 entity2 |
 	entity1 := FamixRepTestMethod new.
@@ -48,7 +50,7 @@ FamixReplicatedFragmentTest >> testMerge [
 	self assert: entity2 replicas size equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicatedFragmentTest >> testMergeable [
 	| frag1 frag2 entity1 entity2 |
 	entity1 := FamixRepTestMethod new.
@@ -60,7 +62,7 @@ FamixReplicatedFragmentTest >> testMergeable [
 	self assert: (frag1 mergeableWith: frag2)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicatedFragmentTest >> testMergeableOverlap [
 	| frag1 frag2 entity1 entity2 |
 	entity1 := FamixRepTestMethod new.
@@ -72,7 +74,7 @@ FamixReplicatedFragmentTest >> testMergeableOverlap [
 	self assert: (frag1 mergeableWith: frag2)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixReplicatedFragmentTest >> testNotMergeable [
 	| frag1 frag2 entity1 entity2 |
 	entity1 := FamixRepTestMethod new.

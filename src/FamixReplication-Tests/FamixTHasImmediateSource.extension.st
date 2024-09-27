@@ -1,6 +1,6 @@
-Extension { #name : #FamixTHasImmediateSource }
+Extension { #name : 'FamixTHasImmediateSource' }
 
-{ #category : #'*FamixReplication-Tests' }
+{ #category : '*FamixReplication-Tests' }
 FamixTHasImmediateSource >> fileName [
 	^ ''
 ]

@@ -2,18 +2,20 @@
 For tests only.
 "
 Class {
-	#name : #FamixRepFakeCleaner,
-	#superclass : #FamixRepSourcesCleaner,
-	#category : #'FamixReplication-Tests-Detection'
+	#name : 'FamixRepFakeCleaner',
+	#superclass : 'FamixRepSourcesCleaner',
+	#category : 'FamixReplication-Tests-Detection',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Detection'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixRepFakeCleaner class >> availableForUser [
 	
 	^false
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepFakeCleaner >> isComment: aLine [
 	^ false
 ]
