@@ -1,10 +1,12 @@
 Class {
-	#name : #FamixRepEntitiesTest,
-	#superclass : #TestCase,
-	#category : #'FamixReplication-Tests-Entities'
+	#name : 'FamixRepEntitiesTest',
+	#superclass : 'TestCase',
+	#category : 'FamixReplication-Tests-Entities',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Entities'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepEntitiesTest >> testEntitiesCache [
 	| entity |
 	entity := FamixRepTestClass new.
@@ -20,7 +22,7 @@ FamixRepEntitiesTest >> testEntitiesCache [
 	self deny: entity containsReplicas
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepEntitiesTest >> testReplicatedFragment [
 	| fragment |
 	fragment := FamixReplicatedFragment new
@@ -30,7 +32,7 @@ FamixRepEntitiesTest >> testReplicatedFragment [
 	self assert: fragment fragmentName equals: 'fragment'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepEntitiesTest >> testReplicationManager [
 	| fragment class method replica model |
 	model := FamixRepTestModel new.

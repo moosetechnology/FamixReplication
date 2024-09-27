@@ -1,28 +1,30 @@
 Class {
-	#name : #FamixRepSmalltalkCleanerTest,
-	#superclass : #FamixRepSourceCleanerTest,
-	#category : #'FamixReplication-Tests-Detection'
+	#name : 'FamixRepSmalltalkCleanerTest',
+	#superclass : 'FamixRepSourceCleanerTest',
+	#category : 'FamixReplication-Tests-Detection',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Detection'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanCommentLines [
 	self
 		assertCollection: (cleaner cleanCommentLines: #('cout + 1 "this is a comment"') )
 		equals: { 1 -> 'cout+1'} asOrderedCollection
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanLine [
 	self assert: (cleaner cleanLine: 'cout + 1 "this is a comment"') equals: 'cout+1'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentError [
 	self assert: (cleaner cleanMultilineComments: 'cout << ''this is not a comment " ''.')
 equals: 'cout << ''this is not a comment " ''.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineComments [
 	self assert: (cleaner cleanMultilineComments: 'cout + 1.
 "this is a 
@@ -37,7 +39,7 @@ cin + 2.
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsNone [
 	self
 		assert: (cleaner cleanMultilineComments: 'cout + 1')
@@ -45,7 +47,7 @@ FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsNone [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsOneLine [
 	self
 		assert: (cleaner cleanMultilineComments: 'cout + "a comment" 1')
@@ -53,7 +55,7 @@ FamixRepSmalltalkCleanerTest >> testCleanMultilineCommentsOneLine [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepSmalltalkCleanerTest >> testIsComment [
 	self deny: (cleaner isComment: 'cout + 1 "this is a comment"') description: 'Comment in code does not make a line comment'
 ]

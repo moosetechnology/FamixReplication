@@ -1,10 +1,12 @@
 Class {
-	#name : #FamixRepDetectorBenchmarkTest,
-	#superclass : #FamixRepDetectorTest,
-	#category : #'FamixReplication-Tests-Detection'
+	#name : 'FamixRepDetectorBenchmarkTest',
+	#superclass : 'FamixRepDetectorTest',
+	#category : 'FamixReplication-Tests-Detection',
+	#package : 'FamixReplication-Tests',
+	#tag : 'Detection'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 FamixRepDetectorBenchmarkTest >> assertReasonableTimeToRun: sourceCodes [
 	| detector timeToRun |
 	timeToRun := [ detector := FamixRepDetector
@@ -26,12 +28,12 @@ FamixRepDetectorBenchmarkTest >> assertReasonableTimeToRun: sourceCodes [
 	self assert: timeToRun < 15 seconds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetectorBenchmarkTest >> defaultTimeLimit [
 	^ 30 seconds
 ]
 
-{ #category : #samples }
+{ #category : 'samples' }
 FamixRepDetectorBenchmarkTest >> sampleMediumSizeSources [
 	^ Array
 		streamContents: [ :stream | 
@@ -41,7 +43,7 @@ FamixRepDetectorBenchmarkTest >> sampleMediumSizeSources [
 						nextPut: self sourceCodeExample ] ]
 ]
 
-{ #category : #samples }
+{ #category : 'samples' }
 FamixRepDetectorBenchmarkTest >> sampleSmallSizeSources [
 	^ Array
 		streamContents: [ :stream | 
@@ -51,17 +53,20 @@ FamixRepDetectorBenchmarkTest >> sampleSmallSizeSources [
 						nextPut: self pizzaExample ] ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepDetectorBenchmarkTest >> testLargeSizeSources [
 	self assertReasonableTimeToRun: self sampleLargeSizeSources
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepDetectorBenchmarkTest >> testMediumSizeSources [
+
+	self flag: 'Test can be flaky, depends on the speed of the computer :-('.
+
 	self assertReasonableTimeToRun: self sampleMediumSizeSources
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FamixRepDetectorBenchmarkTest >> testSmallSizeSources [
 	self assertReasonableTimeToRun: self sampleSmallSizeSources
 ]
