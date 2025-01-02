@@ -4,12 +4,20 @@ I am an code cleaner for languages that have ""paired"" comments, i.e. multiline
 Subclasses should define #multilineCommentOpener and #multilineCommentCloser to return the string marking beginning (resp. end) of a paired comment
 "
 Class {
-	#name : #FamixRepPairedCommentsCleaner,
-	#superclass : #FamixRepSourcesCleaner,
-	#category : #'FamixReplication-Detection'
+	#name : 'FamixRepPairedCommentsCleaner',
+	#superclass : 'FamixRepSourcesCleaner',
+	#category : 'FamixReplication-Detection',
+	#package : 'FamixReplication',
+	#tag : 'Detection'
 }
 
-{ #category : #actions }
+{ #category : 'testing' }
+FamixRepPairedCommentsCleaner class >> availableForUser [ 
+
+	^ self ~= FamixRepPairedCommentsCleaner 
+]
+
+{ #category : 'actions' }
 FamixRepPairedCommentsCleaner >> cleanMultilineComments: aText [
 	"removes all comments possibly spanning several lines without changing the number of lines
 	 (a multi line comment becomes a set of empty lines)"
@@ -35,13 +43,13 @@ FamixRepPairedCommentsCleaner >> cleanMultilineComments: aText [
 ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepPairedCommentsCleaner >> multilineCommentCloser [
 	"string of a paired comment closer (ex: '*/')"
 	self subclassResponsibility 
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepPairedCommentsCleaner >> multilineCommentOpener [
 	"string of a paired comment opener (ex: '/*')"
 	self subclassResponsibility 

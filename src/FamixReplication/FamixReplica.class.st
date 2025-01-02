@@ -16,8 +16,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #FamixReplica,
-	#superclass : #MooseEntity,
+	#name : 'FamixReplica',
+	#superclass : 'MooseEntity',
 	#instVars : [
 		'startLine',
 		'endLine',
@@ -25,16 +25,18 @@ Class {
 		'fileAnchor',
 		'replicatedFragment'
 	],
-	#category : #'FamixReplication-Entities'
+	#category : 'FamixReplication-Entities',
+	#package : 'FamixReplication',
+	#tag : 'Entities'
 }
 
-{ #category : #meta }
+{ #category : 'meta' }
 FamixReplica class >> annotation [
 	<FMClass: #Replica super: #MooseEntity >
 	<package: #FamixReplication>
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplica class >> entityCustomizer [
 	<stonCustomizationFor: #entity>
 	^ STONCustomizer
@@ -48,7 +50,7 @@ FamixReplica class >> entityCustomizer [
 		writeBlock: [ :fragment | fragment entity mooseName ]
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplica class >> fileAnchorCustomizer [
 	<stonCustomizationFor: #fileAnchor>
 	^ STONCustomizer
@@ -61,7 +63,7 @@ FamixReplica class >> fileAnchorCustomizer [
 		writeBlock: [ :fragment | fragment fileAnchor fileName ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FamixReplica class >> from: start to: end for: anEntity [
 	"Adds clone location in entity setted in this location"
 	| result |
@@ -75,7 +77,7 @@ FamixReplica class >> from: start to: end for: anEntity [
 	^ result.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FamixReplica class >> from: start to: end in: fileAnchor for: anEntity [
 	^ self new
 		startLine: start;
@@ -85,7 +87,7 @@ FamixReplica class >> from: start to: end in: fileAnchor for: anEntity [
 		yourself
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplica class >> stonAllInstVarNames [
 	"Here we need to keep the order of the variables because entity needs to be before fileAnchor, else it might be a problem during the import since the FileAnchor need to be imported AFTER the entity."
 
@@ -94,19 +96,19 @@ FamixReplica class >> stonAllInstVarNames [
 	^ super stonAllInstVarNames reject: [ :each | toReject includes: each ]
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplica class >> stonName [
 	^ #Location
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> codeText [
 	| text |
 	text := self entitySourceCode.
 	^ text copyFrom: (text intervalOfLine: self startLine) first to: (text intervalOfLine: self endLine) last
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplica >> concernSameSubjectAs: anotherReplica [
 	"Return true if my entity and file containing the sources are the same as the onthe replica."
 
@@ -115,52 +117,52 @@ FamixReplica >> concernSameSubjectAs: anotherReplica [
 	^ self fileAnchor = anotherReplica fileAnchor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> endLine [
 	<navigation: 'Ending line of the replica'>
 	^ endLine
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> endLine: anObject [
 	endLine := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> entity [
 	<navigation: 'The entity of this replica'>
 	^ entity
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> entity: anEntity [
 	entity := anEntity.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> entitySourceCode [
 	^ self fileAnchor sourceText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> fileAnchor [
 	<navigation: 'The file of the entity that contains the duplicated code fragment'>
 	^ fileAnchor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> fileAnchor: aFileAnchor [
 	fileAnchor := aFileAnchor
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplica >> hasReplicatedFragment [
 	"If a replica does not have a replicated fragment it might mean that it was removed form the replication system and should not be considered for analysis anymore."
 
 	^ self replicatedFragment isNotNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplica >> isContiguousWith: anotherLocation [
 	"Return true if the duplication fragment is in the same file and overlapping with the fragment passed as parameter."
 
@@ -169,25 +171,25 @@ FamixReplica >> isContiguousWith: anotherLocation [
 	^ self startLine <= (anotherLocation endLine + 1) and: [ self endLine + 1 >= anotherLocation startLine ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplica >> isSupersetOfReplica: aReplica [
 	(self concernSameSubjectAs: aReplica) ifFalse: [ ^ false ].
 
 	^ (aReplica startLine between: self startLine and: self endLine) and: [ aReplica endLine between: self startLine and: self endLine ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> length [
 	^ self endLine - self startLine + 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FamixReplica >> miReplicaInspectorExtension [
 	<inspectorPresentationOrder: 1 title: 'Replica'>
 	^MiReplicatInspectorExtension on: self
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FamixReplica >> mooseNameOn: stream [
 	stream
 		nextPutAll: 'Replica in ';
@@ -201,34 +203,34 @@ FamixReplica >> mooseNameOn: stream [
 		nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> name [
 	^ self entity ifNil: [ #undefined ] ifNotNil: #name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> replicaFileName [
 	self fileAnchor ifNotNil: [ :anchor | anchor isFileAnchor ifTrue: [ ^ anchor fileName ] ].
 	^ 'no replica file name'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> replicatedFragment [ 
 	^ replicatedFragment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> replicatedFragment: aReplicatedFragment [
 	replicatedFragment := aReplicatedFragment
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> startLine [
 	<navigation: 'Starting line of the replica'>
 	^ startLine
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplica >> startLine: anObject [
 	startLine := anObject
 ]
