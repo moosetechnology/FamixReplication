@@ -1,6 +1,6 @@
-Extension { #name : #MooseEntity }
+Extension { #name : 'MooseEntity' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseEntity >> containsReplicas [
 	^ false
 ]

@@ -1,11 +1,11 @@
-Extension { #name : #FamixTMultipleFileAnchor }
+Extension { #name : 'FamixTMultipleFileAnchor' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTMultipleFileAnchor >> knowsEnd [
 	^ self allSourceAnchors allSatisfy: #knowsEnd
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTMultipleFileAnchor >> knowsStart [
 	^ self allSourceAnchors allSatisfy: #knowsStart
 ]

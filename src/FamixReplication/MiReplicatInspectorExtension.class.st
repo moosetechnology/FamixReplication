@@ -1,15 +1,17 @@
 Class {
-	#name : #MiReplicatInspectorExtension,
-	#superclass : #SpPresenter,
+	#name : 'MiReplicatInspectorExtension',
+	#superclass : 'SpPresenter',
 	#instVars : [
 		'sourceText',
 		'properties',
 		'replica'
 	],
-	#category : #'FamixReplication-Entities'
+	#category : 'FamixReplication-Entities',
+	#package : 'FamixReplication',
+	#tag : 'Entities'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 MiReplicatInspectorExtension >> highlightedReplicaText [
 	| text start end |
 
@@ -23,7 +25,7 @@ MiReplicatInspectorExtension >> highlightedReplicaText [
 	^text
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MiReplicatInspectorExtension >> initializeLayout [
 	self layout: (SpBoxLayout newTopToBottom
 		add: #properties height: (self propertyTableHeight);
@@ -32,7 +34,7 @@ MiReplicatInspectorExtension >> initializeLayout [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MiReplicatInspectorExtension >> initializePresenters [
 	properties := self newTable.
 	properties
@@ -53,7 +55,7 @@ MiReplicatInspectorExtension >> initializePresenters [
 	self initializeLayout .
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MiReplicatInspectorExtension >> lineStart: line in: text [
 	| i pos |
 	i := 1.
@@ -65,12 +67,12 @@ MiReplicatInspectorExtension >> lineStart: line in: text [
 	^pos > text size ifTrue: [ text size ] ifFalse: [ pos ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MiReplicatInspectorExtension >> propertyTableHeight [
 	^self class toolbarHeight *4
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MiReplicatInspectorExtension >> setModelBeforeInitialization: aDomainObject [
 	replica := aDomainObject 
 ]

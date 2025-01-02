@@ -22,44 +22,46 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #FamixRepDetector,
-	#superclass : #Object,
+	#name : 'FamixRepDetector',
+	#superclass : 'Object',
 	#instVars : [
 		'bucket',
 		'configuration'
 	],
-	#category : #'FamixReplication-Detection'
+	#category : 'FamixReplication-Detection',
+	#package : 'FamixReplication',
+	#tag : 'Detection'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 FamixRepDetector class >> runOn: aMooseGroup with: aConfiguration [
 	^ self new
 		configuration: aConfiguration;
 		runOn: aMooseGroup
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> bucket [
 	^ bucket
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> configuration [
 	^ configuration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> configuration: aRepConfiguration [
 	configuration := aRepConfiguration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> detectReplicatedFragmentsOf: aSourcedEntity [
 	configuration sourcesCleaner reset.
 	aSourcedEntity allSourceAnchorsDo: [ :sourceAnchor | self detectReplicatedFragmentsOf: aSourcedEntity sourceAnchor: sourceAnchor ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> detectReplicatedFragmentsOf: anEntity sourceAnchor: sourceAnchor [
 	(self sourcesCleaner cleanedTextLines: sourceAnchor sourceText)
 		ifNotEmpty: [ :lines | 
@@ -75,12 +77,12 @@ FamixRepDetector >> detectReplicatedFragmentsOf: anEntity sourceAnchor: sourceAn
 						for: anEntity ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FamixRepDetector >> getHashFor: aCollectionOfLines concatenated: concatenateLines [
 	^ concatenateLines hash * 10000000000000 + (String streamContents: [ :s | 1 to: aCollectionOfLines size do: [ :ind | s << (aCollectionOfLines at: ind) first ] ]) hash
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FamixRepDetector >> getReplicatedFragments [
 	('Select cloned fragments from a bucket of ' , bucket values size asString , ' clones.') record.
 
@@ -89,13 +91,13 @@ FamixRepDetector >> getReplicatedFragments [
 			yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FamixRepDetector >> initialize [
 	super initialize.
 	bucket := Dictionary new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FamixRepDetector >> registerToBucket: aCollectionOfLines from: firstLineIndex to: lastLineIndex in: fileAnchor for: anEntity [
 	aCollectionOfLines concatenatesStrings
 		ifNotEmpty: [ :concatenatedLines | 
@@ -110,7 +112,7 @@ FamixRepDetector >> registerToBucket: aCollectionOfLines from: firstLineIndex to
 				ifAbsentPut: [ FamixReplicatedFragment with: replica ] ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 FamixRepDetector >> runOn: aCollection [
 
 	| manager |
@@ -139,7 +141,7 @@ FamixRepDetector >> runOn: aCollection [
 	^ manager
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 FamixRepDetector >> selectEntitiesWithEnoughInformationFrom: aCollection [
 	"I reject the entities that does not have a source anchor or whose source anchor does not know the start or the end position of the source in a file because in that case we will read everything and display wrong informations."
 
@@ -162,7 +164,7 @@ FamixRepDetector >> selectEntitiesWithEnoughInformationFrom: aCollection [
 	^ res
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepDetector >> sourcesCleaner [
 	^ configuration sourcesCleaner
 ]

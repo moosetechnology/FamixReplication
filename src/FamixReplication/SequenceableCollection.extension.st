@@ -1,6 +1,6 @@
-Extension { #name : #SequenceableCollection }
+Extension { #name : 'SequenceableCollection' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 SequenceableCollection >> concatenatesStrings [
 	"Takes as predicament that the collection contains only string and return the concatenation of all string.
 	

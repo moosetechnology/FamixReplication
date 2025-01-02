@@ -1,23 +1,23 @@
-Extension { #name : #FamixTSourceEntity }
+Extension { #name : 'FamixTSourceEntity' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> addReplica: anObject [ 
 	self replicas add: anObject
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> clearReplicationCache [
 	self propertyNamed: #replicas put: OrderedCollection new
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> codeReplicationIntervals [
 	| text |
 	text := self completeText.
 	^ self replicas collect: [ :aCloneLocation | (text intervalOfLine: aCloneLocation startLine) first to: (text intervalOfLine: aCloneLocation endLine) last ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> containsReplicas [
 	<FMProperty: #containsReplicas type: #Boolean>
 	<derived>
@@ -27,7 +27,7 @@ FamixTSourceEntity >> containsReplicas [
 	^ self children anySatisfy: #containsReplicas
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> duplicationRate [
 	<FMProperty: #duplicationRate type: #Number>
 	<FMComment: 'Duplication Rate.'>
@@ -58,7 +58,7 @@ FamixTSourceEntity >> duplicationRate [
 			(accumulator + usefulCloneLocations anyOne length) / self numberOfLinesOfCode ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> mergePossibleDuplications [
 	"I try to merge the duplication and if I fail I return false."
 
@@ -71,12 +71,12 @@ FamixTSourceEntity >> mergePossibleDuplications [
 	^ wasAbleToMergeAll
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> removeReplica: aReplica [
 	self containsReplicas ifTrue: [ self replicas remove: aReplica ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceEntity >> replicas [
 	<FMProperty: #replicas type: #FamixReplica>
 	<FMComment: 'A collection of fragments of cloned code found in this program'>

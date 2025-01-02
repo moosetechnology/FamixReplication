@@ -13,84 +13,86 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #FamixReplicatedFragment,
-	#superclass : #MooseEntity,
+	#name : 'FamixReplicatedFragment',
+	#superclass : 'MooseEntity',
 	#instVars : [
 		'replicas',
 		'fragmentName'
 	],
-	#category : #'FamixReplication-Entities'
+	#category : 'FamixReplication-Entities',
+	#package : 'FamixReplication',
+	#tag : 'Entities'
 }
 
-{ #category : #meta }
+{ #category : 'meta' }
 FamixReplicatedFragment class >> annotation [
 	<FMClass: #ReplicatedFragment super: #MooseEntity >
 	<package: #FamixReplication>
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplicatedFragment class >> stonAllInstVarNames [
 	^ super stonAllInstVarNames \ {#mooseID . #cache . #entityAttributes . #mooseName . #mooseModel}
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplicatedFragment class >> stonName [
 	^ #Fragment
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FamixReplicatedFragment class >> with: aReplica [
 	^ self new
 		addReplica: aReplica;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> addReplica: aFragmentLocation [
 	self replicas add: aFragmentLocation.
 	aFragmentLocation replicatedFragment: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> allReplicasConcernSameFilesAs: anotherFragment [
 	self replicas size <= anotherFragment replicas size ifFalse: [ ^ false ].
 
 	^ self replicas allSatisfy: [ :aReplica | anotherFragment replicas anySatisfy: [ :anotherReplica | anotherReplica concernSameSubjectAs: aReplica ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 FamixReplicatedFragment >> averageNumberOfLines [
 	self replicas ifEmpty: [ ^ MooseUnavailableMetric ].
 	^ (self replicas sum: #length) / self replicas size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> codeText [
 	^ replicas anyOne codeText
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 FamixReplicatedFragment >> entitiesContainingFragment [
 	^ self replicas collectAsSet: #entity
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> fragmentName [
 	^ fragmentName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> fragmentName: aString [
 	fragmentName := aString.
 ]
 
-{ #category : #ston }
+{ #category : 'ston' }
 FamixReplicatedFragment >> fromSton: stonReader [
 	super fromSton: stonReader.
 	self replicas do: [ :member | member replicatedFragment: self ]
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> getReplicaCorrespondingTo: aReplica [
 	| possibleFragments |
 	"We need to check the file anchor because an entity can have multiple fileAnchor."
@@ -105,27 +107,27 @@ FamixReplicatedFragment >> getReplicaCorrespondingTo: aReplica [
 				ifNone: [ nil ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> hasContiguousReplicaWith: aReplica [
 	^ self replicas anySatisfy: [ :anotherReplica | aReplica isContiguousWith: anotherReplica ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> hasReplicas [
 	^ self replicas isNotEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> includesAllReplicasOf: anotherFragment [
 	^ anotherFragment replicas allSatisfy: [ :replica | self replicas anySatisfy: [ :anotherReplica | anotherReplica isSupersetOfReplica: replica ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> isReplicatedFragment [
 	^ true
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> mergeWith: anotherFragment [
 	"I try to merge with another fragment. If I fail I return false to signal the merge was not finished."
 
@@ -140,7 +142,7 @@ FamixReplicatedFragment >> mergeWith: anotherFragment [
 	^ anotherFragment hasReplicas not
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FamixReplicatedFragment >> mergeableWith: anotherFragment [
 	anotherFragment = self ifTrue: [ ^ false ].
 	
@@ -148,7 +150,7 @@ FamixReplicatedFragment >> mergeableWith: anotherFragment [
 		and: [ anotherFragment replicas allSatisfy: [ :replica | self hasContiguousReplicaWith: replica ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FamixReplicatedFragment >> miReplicasInspectorExtension [
 	<inspectorPresentationOrder: 1 title: 'Replicas'>
 	^SpTablePresenter new
@@ -161,7 +163,7 @@ FamixReplicatedFragment >> miReplicasInspectorExtension [
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FamixReplicatedFragment >> mooseNameOn: aStream [
 	aStream
 		nextPutAll: 'Replicated fragment ';
@@ -170,7 +172,7 @@ FamixReplicatedFragment >> mooseNameOn: aStream [
 		nextPut: $]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FamixReplicatedFragment >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -180,20 +182,20 @@ FamixReplicatedFragment >> printOn: aStream [
 		nextPutAll: ' fragments]'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FamixReplicatedFragment >> properties [
 	^ {('Number of files' -> self replicas size asString).
 	('Number of cloned lines' -> self averageNumberOfLines asInteger asString)}
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> registerReplicasInEntities [
 	"By default the replicas are not registered in entities since we create false result during the detection. Once it is done, we can register the non false positives."
 
 	self replicas do: [ :replica | replica entity addReplica: replica ]
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> remove: aReplica [
 	aReplica entity removeReplica: aReplica.
 	aReplica entity: nil.
@@ -202,18 +204,18 @@ FamixReplicatedFragment >> remove: aReplica [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> replicas [
 	<navigation: 'Members of this clone fragment'>
 	^ replicas ifNil: [ replicas := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixReplicatedFragment >> replicas: anObject [
 	replicas := anObject.
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> tryToExpandWith: anotherFragment [
 	"If it's the same fragment, we don't need to do anything."
 	self = anotherFragment ifTrue: [ ^ self ].
@@ -231,7 +233,7 @@ FamixReplicatedFragment >> tryToExpandWith: anotherFragment [
 							aReplica endLine: (aReplica endLine max: anotherReplica endLine) ] ] ]
 ]
 
-{ #category : #merge }
+{ #category : 'merge' }
 FamixReplicatedFragment >> unregisterReplicasInEntities [
 	self replicas do: [ :replica | replica entity removeReplica: replica ]
 ]

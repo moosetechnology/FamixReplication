@@ -1,6 +1,6 @@
-Extension { #name : #MooseModel }
+Extension { #name : 'MooseModel' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> allBehaviouralsWithDuplicatedCode [
 	<navigation: 'All executables with duplicated code'>
 	^ self
@@ -13,7 +13,7 @@ MooseModel >> allBehaviouralsWithDuplicatedCode [
 			self allModelBehaviourals select: #containsReplicas ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> allContainersWithDuplicatedCode [
 	<navigation: 'All containers with duplicated code'>
 	^ self
@@ -26,13 +26,13 @@ MooseModel >> allContainersWithDuplicatedCode [
 			self allModelContainers select: #containsReplicas ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> allReplicatedFragments [
 	<navigation: 'All replicated fragments'>
 	^ self replicationManager ifNotNil: #replicatedFragments
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> clearReplicationManager [
 	'Clear replication manager' record.
 	self entitiesForReplicationDetection do: #clearReplicationCache.
@@ -40,14 +40,14 @@ MooseModel >> clearReplicationManager [
 	self removeCache: #allContainersWithDuplicatedCode
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> defaultDetectionConfiguration [
 	"By default if we do not set a replication detection configuration, we do not run the detection"
 
 	^ nil
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> duplicationRate [
 	"I return a metric that correspond to the percentage of duplication in the code."
 
@@ -60,14 +60,14 @@ MooseModel >> duplicationRate [
 				do: [ MooseUnavailableMetric ] ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> entitiesForReplicationDetection [
 	"Override this depending on your model."
 
 	^ self allModelContainers
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> exportReplicationTo: file [
 	self
 		execute: [ self detectEncodingOfAllFileAnchors.
@@ -75,7 +75,7 @@ MooseModel >> exportReplicationTo: file [
 		recordedAs: 'Duplication export'
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> importReplicationFrom: file [
 	self
 		execute: [ file
@@ -86,7 +86,7 @@ MooseModel >> importReplicationFrom: file [
 		recordedAs: 'Loading of duplication'
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> initializeReplicationManager [
 	self clearReplicationManager.
 
@@ -98,12 +98,12 @@ MooseModel >> initializeReplicationManager [
 			(FamixRepDetector runOn: self entitiesForReplicationDetection with: config) in: [ :manager | self replicationManager: manager ] ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> replicationDetectionConfiguration [
 	^ self attributeAt: #replicationManager ifAbsentPut: [ self defaultDetectionConfiguration ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> replicationDetectionConfiguration: aConfiguration [
 	"Example:
 	
@@ -118,12 +118,12 @@ MooseModel >> replicationDetectionConfiguration: aConfiguration [
 	self attributeAt: #replicationManager put: aConfiguration
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> replicationManager [
 	^ self attributeAt: #replicationManager ifAbsent: [ self initializeReplicationManager ]
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 MooseModel >> replicationManager: anObject [
 	^ self attributeAt: #replicationManager put: anObject
 ]

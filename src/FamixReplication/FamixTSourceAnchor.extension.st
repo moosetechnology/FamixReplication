@@ -1,11 +1,11 @@
-Extension { #name : #FamixTSourceAnchor }
+Extension { #name : 'FamixTSourceAnchor' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceAnchor >> knowsEnd [
 	^ self explicitRequirement
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTSourceAnchor >> knowsStart [
 	^ self explicitRequirement
 ]
