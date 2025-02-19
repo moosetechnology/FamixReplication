@@ -23,18 +23,20 @@ Internal Representation and Key Implementation Points.
 	sourcesCleaner:						<aCleaner>		The cleaner used to clean the code before detecting replication.
 "
 Class {
-	#name : #FamixRepConfiguration,
-	#superclass : #Object,
+	#name : 'FamixRepConfiguration',
+	#superclass : 'Object',
 	#instVars : [
 		'sourcesCleaner',
 		'minimumNumberOfReplicas',
 		'minimumNumberOfCharacters',
 		'minimumNumberOfLines'
 	],
-	#category : #'FamixReplication-Detection'
+	#category : 'FamixReplication-Detection',
+	#package : 'FamixReplication',
+	#tag : 'Detection'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FamixRepConfiguration class >> sourcesCleaner: aSourcesCleaner minimumNumberOfReplicas: anInteger ofLines: anotherInteger ofCharacters: yetAnotherInteger [
 	^ self new
 		minimumNumberOfReplicas: anInteger;
@@ -43,47 +45,47 @@ FamixRepConfiguration class >> sourcesCleaner: aSourcesCleaner minimumNumberOfRe
 		sourcesCleaner: aSourcesCleaner
 ]
 
-{ #category : #'ston-core' }
+{ #category : 'ston-core' }
 FamixRepConfiguration class >> stonName [
 	^ #ReplicationConfiguration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfCharacters [
 	^ minimumNumberOfCharacters
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfCharacters: anInteger [
 	minimumNumberOfCharacters := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfLines [
 	^ minimumNumberOfLines
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfLines: anInteger [
 	minimumNumberOfLines := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfReplicas [
 	^ minimumNumberOfReplicas
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> minimumNumberOfReplicas: anInteger [
 	minimumNumberOfReplicas := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> sourcesCleaner [
 	^ sourcesCleaner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FamixRepConfiguration >> sourcesCleaner: aSourceCleaner [
 	sourcesCleaner := aSourceCleaner
 ]

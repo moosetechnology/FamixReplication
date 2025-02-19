@@ -1,6 +1,6 @@
-Extension { #name : #Object }
+Extension { #name : 'Object' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 Object >> isReplicatedFragment [
 	^ false
 ]

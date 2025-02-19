@@ -1,11 +1,11 @@
-Extension { #name : #FamixTFileNavigation }
+Extension { #name : 'FamixTFileNavigation' }
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTFileNavigation >> knowsEnd [
 	^ self endLine isNotNil
 ]
 
-{ #category : #'*FamixReplication' }
+{ #category : '*FamixReplication' }
 FamixTFileNavigation >> knowsStart [
 	^ self startLine isNotNil
 ]
