@@ -162,6 +162,13 @@ FamixReplica >> hasReplicatedFragment [
 	^ self replicatedFragment isNotNil
 ]
 
+{ #category : 'inspector' }
+FamixReplica >> inspectionReplica: aBuilder [
+
+	<inspectorPresentationOrder: 1 title: 'Replica'>
+	^ aBuilder instantiate: MiReplicatInspectorExtension on: self
+]
+
 { #category : 'testing' }
 FamixReplica >> isContiguousWith: anotherLocation [
 	"Return true if the duplication fragment is in the same file and overlapping with the fragment passed as parameter."
@@ -181,12 +188,6 @@ FamixReplica >> isSupersetOfReplica: aReplica [
 { #category : 'accessing' }
 FamixReplica >> length [
 	^ self endLine - self startLine + 1
-]
-
-{ #category : 'as yet unclassified' }
-FamixReplica >> miReplicaInspectorExtension [
-	<inspectorPresentationOrder: 1 title: 'Replica'>
-	^MiReplicatInspectorExtension on: self
 ]
 
 { #category : 'printing' }

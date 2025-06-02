@@ -3,7 +3,6 @@ Class {
 	#superclass : 'SpPresenter',
 	#instVars : [
 		'sourceText',
-		'properties',
 		'replica'
 	],
 	#category : 'FamixReplication-Entities',
