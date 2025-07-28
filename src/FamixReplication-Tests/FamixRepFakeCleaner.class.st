@@ -11,8 +11,14 @@ Class {
 
 { #category : 'testing' }
 FamixRepFakeCleaner class >> availableForUser [
-	
-	^false
+
+	^ false
+]
+
+{ #category : 'displaying' }
+FamixRepFakeCleaner class >> displayStringOn: aStream [
+
+	aStream << 'For tests only'
 ]
 
 { #category : 'actions' }

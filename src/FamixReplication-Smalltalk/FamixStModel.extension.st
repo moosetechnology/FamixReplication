@@ -1,6 +1,6 @@
-Extension { #name : #FamixStModel }
+Extension { #name : 'FamixStModel' }
 
-{ #category : #'*FamixReplication-Smalltalk' }
+{ #category : '*FamixReplication-Smalltalk' }
 FamixStModel >> replicationDetectionConfiguration [
 	^ FamixRepConfiguration
 		sourcesCleaner: FamixRepSmalltalkCleaner new

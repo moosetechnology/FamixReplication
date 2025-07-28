@@ -11,6 +11,12 @@ Class {
 	#tag : 'Detection'
 }
 
+{ #category : 'testing' }
+FamixRepPairedCommentsCleaner class >> isAbstract [
+
+	^ self == FamixRepPairedCommentsCleaner
+]
+
 { #category : 'actions' }
 FamixRepPairedCommentsCleaner >> cleanMultilineComments: aText [
 	"removes all comments possibly spanning several lines without changing the number of lines

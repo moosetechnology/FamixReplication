@@ -1,1 +1,1 @@
-Package { #name : #'FamixReplication-CPP' }
+Package { #name : 'FamixReplication-CPP' }
