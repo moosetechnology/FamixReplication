@@ -79,8 +79,9 @@ FamixTSourceEntity >> removeReplica: aReplica [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> replicas [
+
 	<FMProperty: #replicas type: #FamixReplica>
 	<FMComment: 'A collection of fragments of cloned code found in this program'>
 	<derived>
-	^ self propertyNamed: #replicas ifAbsentPut: [ OrderedCollection new ]
+	^ self cacheAt: #replicas ifAbsentPut: [ OrderedCollection new ]
 ]
