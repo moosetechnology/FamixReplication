@@ -7,7 +7,8 @@ FamixTSourceEntity >> addReplica: anObject [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> clearReplicationCache [
-	self propertyNamed: #replicas put: OrderedCollection new
+
+	self cacheAt: #replicas put: OrderedCollection new
 ]
 
 { #category : '*FamixReplication' }
