@@ -2,28 +2,24 @@ Extension { #name : 'MooseModel' }
 
 { #category : '*FamixReplication' }
 MooseModel >> allBehaviouralsWithDuplicatedCode [
+
 	<navigation: 'All executables with duplicated code'>
-	^ self
-		lookUpPropertyNamed: #allBehaviouralsWithDuplicatedCode
-		computedAs: [ 'Compute allBehaviouralsWithDuplicatedCode' record.
+	^ self cacheAt: #allBehaviouralsWithDuplicatedCode ifAbsent: [
+			  'Compute allBehaviouralsWithDuplicatedCode' record. "Ensure the replication detection was run."
+			  self replicationManager ifNil: [ MooseUnavailableMetric ].
 
-			"Ensure the replication detection was run."
-			self replicationManager ifNil: [ MooseUnavailableMetric ].
-
-			self allModelBehaviourals select: #containsReplicas ]
+			  self allModelBehaviourals select: #containsReplicas ]
 ]
 
 { #category : '*FamixReplication' }
 MooseModel >> allContainersWithDuplicatedCode [
+
 	<navigation: 'All containers with duplicated code'>
-	^ self
-		lookUpPropertyNamed: #allContainersWithDuplicatedCode
-		computedAs: [ 'Compute allContainersWithDuplicatedCode' record.
+	^ self cacheAt: #allContainersWithDuplicatedCode ifAbsent: [
+			  'Compute allContainersWithDuplicatedCode' record. "Ensure the replication detection was run."
+			  self replicationManager ifNil: [ MooseUnavailableMetric ].
 
-			"Ensure the replication detection was run."
-			self replicationManager ifNil: [ MooseUnavailableMetric ].
-
-			self allModelContainers select: #containsReplicas ]
+			  self allModelContainers select: #containsReplicas ]
 ]
 
 { #category : '*FamixReplication' }
@@ -51,13 +47,13 @@ MooseModel >> defaultDetectionConfiguration [
 MooseModel >> duplicationRate [
 	"I return a metric that correspond to the percentage of duplication in the code."
 
-	^ self
-		lookUpPropertyNamed: #duplicationRate
-		computedAs: [ [ | coll |
-			coll := self entitiesForReplicationDetection.
-			(coll sumNumbers: #duplicationRate) / coll size ]
-				on: ZeroDivide
-				do: [ MooseUnavailableMetric ] ]
+	^ self cacheAt: #duplicationRate ifAbsentPut: [
+			  [
+				  | coll |
+				  coll := self entitiesForReplicationDetection.
+				  (coll sumNumbers: #duplicationRate) / coll size ]
+				  on: ZeroDivide
+				  do: [ MooseUnavailableMetric ] ]
 ]
 
 { #category : '*FamixReplication' }
