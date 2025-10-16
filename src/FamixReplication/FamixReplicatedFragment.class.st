@@ -122,6 +122,23 @@ FamixReplicatedFragment >> includesAllReplicasOf: anotherFragment [
 	^ anotherFragment replicas allSatisfy: [ :replica | self replicas anySatisfy: [ :anotherReplica | anotherReplica isSupersetOfReplica: replica ] ]
 ]
 
+{ #category : 'inspector' }
+FamixReplicatedFragment >> inspectionReplicas: aBuidler [
+
+	<inspectorPresentationOrder: 1 title: 'Replicas'>
+	^ aBuidler newTable
+		  items: {
+				  ('Name' -> #fragmentName).
+				  ('Size' -> [ :item | item replicas size ]).
+				  ('Code' -> #codeText) };
+		  addColumn:
+			  ((SpStringTableColumn title: 'Prop.' evaluated: #key) width: 30);
+		  addColumn: (SpStringTableColumn
+				   title: 'Value'
+				   evaluated: [ :prop | prop value value: self ]);
+		  yourself
+]
+
 { #category : 'testing' }
 FamixReplicatedFragment >> isReplicatedFragment [
 	^ true
@@ -148,19 +165,6 @@ FamixReplicatedFragment >> mergeableWith: anotherFragment [
 	
 	^ (self replicas allSatisfy: [ :replica | anotherFragment hasContiguousReplicaWith: replica ])
 		and: [ anotherFragment replicas allSatisfy: [ :replica | self hasContiguousReplicaWith: replica ] ]
-]
-
-{ #category : 'as yet unclassified' }
-FamixReplicatedFragment >> miReplicasInspectorExtension [
-	<inspectorPresentationOrder: 1 title: 'Replicas'>
-	^SpTablePresenter new
-		items: {
-		'Name' -> #fragmentName .
-		'Size' -> [:item | item replicas size] .
-		'Code' -> #codeText } ;
-		addColumn: ( (SpStringTableColumn title: 'Prop.' evaluated: #key) width: 30 );
-		addColumn: (SpStringTableColumn title: 'Value' evaluated: [:prop | prop value value: self]) ;
-		yourself
 ]
 
 { #category : 'printing' }

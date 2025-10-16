@@ -5,22 +5,24 @@ Description
 I am a cleaner to clean smalltalk method code for replication detection
 "
 Class {
-	#name : #FamixRepSmalltalkCleaner,
-	#superclass : #FamixRepSourcesCleaner,
-	#category : #'FamixReplication-Smalltalk'
+	#name : 'FamixRepSmalltalkCleaner',
+	#superclass : 'FamixRepSourcesCleaner',
+	#category : 'FamixReplication-Smalltalk',
+	#package : 'FamixReplication-Smalltalk'
 }
 
-{ #category : #displaying }
-FamixRepSmalltalkCleaner class >> displayString [
-	^'Smalltalk comments'
+{ #category : 'displaying' }
+FamixRepSmalltalkCleaner class >> displayStringOn: aStream [
+
+	aStream << 'Smalltalk comments'
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepSmalltalkCleaner >> cleanLine: aText [
 	^ (super cleanLine: aText) copyWithRegex:  '\".*\"'  matchesReplacedWith: ''
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepSmalltalkCleaner >> cleanMultilineComments: aText [
 	"removes all comments possibly spanning several lines without changing the number of lines
 	 (a multi line comment becomes a set of empty lines)"
@@ -42,7 +44,7 @@ FamixRepSmalltalkCleaner >> cleanMultilineComments: aText [
 ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 FamixRepSmalltalkCleaner >> isComment: aLine [
 	"we could have defined comment as 
 		aLine matchesRegex:  '\"".*\""$' 

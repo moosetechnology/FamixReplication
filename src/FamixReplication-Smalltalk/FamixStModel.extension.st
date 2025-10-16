@@ -1,10 +1,11 @@
-Extension { #name : #FamixStModel }
+Extension { #name : 'FamixStModel' }
 
-{ #category : #'*FamixReplication-Smalltalk' }
-FamixStModel >> replicationDetectionConfiguration [
+{ #category : '*FamixReplication-Smalltalk' }
+FamixStModel >> defaultDetectionConfiguration [
+
 	^ FamixRepConfiguration
-		sourcesCleaner: FamixRepSmalltalkCleaner new
-		minimumNumberOfReplicas: 2
-		ofLines: 10
-		ofCharacters: 80
+		  sourcesCleaner: FamixRepSmalltalkCleaner new
+		  minimumNumberOfReplicas: 2
+		  ofLines: 10
+		  ofCharacters: 80
 ]

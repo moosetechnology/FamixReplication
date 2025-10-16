@@ -12,9 +12,9 @@ Class {
 }
 
 { #category : 'testing' }
-FamixRepPairedCommentsCleaner class >> availableForUser [ 
+FamixRepPairedCommentsCleaner class >> isAbstract [
 
-	^ self ~= FamixRepPairedCommentsCleaner 
+	^ self == FamixRepPairedCommentsCleaner
 ]
 
 { #category : 'actions' }

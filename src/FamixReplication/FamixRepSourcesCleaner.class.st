@@ -15,18 +15,27 @@ Class {
 
 { #category : 'accessing' }
 FamixRepSourcesCleaner class >> allAvailableCleaners [
-	^self withAllSubclasses select: [:cleaner | cleaner availableForUser]
+
+	^ self withAllSubclasses select: [ :cleaner |
+		  cleaner availableForUser ]
 ]
 
 { #category : 'testing' }
-FamixRepSourcesCleaner class >> availableForUser [ 
+FamixRepSourcesCleaner class >> availableForUser [
 
-	^ self ~= FamixRepSourcesCleaner 
+	^ self isAbstract not
 ]
 
 { #category : 'displaying' }
-FamixRepSourcesCleaner class >> displayString [
+FamixRepSourcesCleaner class >> displayStringOn: aStream [
+
 	self subclassResponsibility
+]
+
+{ #category : 'testing' }
+FamixRepSourcesCleaner class >> isAbstract [
+
+	^ self == FamixRepSourcesCleaner
 ]
 
 { #category : 'private' }
@@ -90,6 +99,12 @@ FamixRepSourcesCleaner >> copyAsEmptyLines: aString from: start to: end into: aS
 		ifTrue: [ aStream nextPut: c]
 	].
 	^aStream 
+]
+
+{ #category : 'displaying' }
+FamixRepSourcesCleaner >> displayStringOn: aStream [
+
+	^ self class displayStringOn: aStream
 ]
 
 { #category : 'initialization' }

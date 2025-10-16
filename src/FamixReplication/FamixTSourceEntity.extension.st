@@ -7,7 +7,8 @@ FamixTSourceEntity >> addReplica: anObject [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> clearReplicationCache [
-	self propertyNamed: #replicas put: OrderedCollection new
+
+	self cacheAt: #replicas put: OrderedCollection new
 ]
 
 { #category : '*FamixReplication' }
@@ -19,12 +20,13 @@ FamixTSourceEntity >> codeReplicationIntervals [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> containsReplicas [
+
 	<FMProperty: #containsReplicas type: #Boolean>
 	<derived>
 	<FMComment: 'Flag true if the entity contains duplication.'>
 	self replicas ifNotEmpty: [ ^ true ].
 
-	^ self children anySatisfy: #containsReplicas
+	^ self containedEntities anySatisfy: #containsReplicas
 ]
 
 { #category : '*FamixReplication' }
@@ -78,8 +80,9 @@ FamixTSourceEntity >> removeReplica: aReplica [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> replicas [
+
 	<FMProperty: #replicas type: #FamixReplica>
 	<FMComment: 'A collection of fragments of cloned code found in this program'>
 	<derived>
-	^ self propertyNamed: #replicas ifAbsentPut: [ OrderedCollection new ]
+	^ self cacheAt: #replicas ifAbsentPut: [ OrderedCollection new ]
 ]

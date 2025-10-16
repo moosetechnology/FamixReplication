@@ -1,1 +1,1 @@
-Package { #name : #'FamixReplication-Smalltalk' }
+Package { #name : 'FamixReplication-Smalltalk' }
