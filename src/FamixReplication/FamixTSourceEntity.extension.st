@@ -1,14 +1,16 @@
 Extension { #name : 'FamixTSourceEntity' }
 
 { #category : '*FamixReplication' }
-FamixTSourceEntity >> addReplica: anObject [ 
-	self replicas add: anObject
+FamixTSourceEntity >> addReplica: anObject [
+	"If we do not have replicats but need to add one, we now save the collection in the cache in contrary of #replicas."
+
+	(self cacheAt: #replicas ifAbsentPut: [ OrderedCollection new ]) add: anObject
 ]
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> clearReplicationCache [
 
-	self cacheAt: #replicas put: OrderedCollection new
+	self removeCache: #replicas
 ]
 
 { #category : '*FamixReplication' }
@@ -24,9 +26,14 @@ FamixTSourceEntity >> containsReplicas [
 	<FMProperty: #containsReplicas type: #Boolean>
 	<derived>
 	<FMComment: 'Flag true if the entity contains duplication.'>
-	self replicas ifNotEmpty: [ ^ true ].
+	
+	"If the cache is present, then there should be at least one replica"
+	self  cacheAt: #replicas ifPresent: [ ^ true ].
 
-	^ self containedEntities anySatisfy: #containsReplicas
+	"Iterating over the children for speed reason instead of using an #anySatisfy:"
+	self containedEntitiesDo: [ :child | child containsReplicas ifTrue: [  ^ true ] ].
+	
+	^ false
 ]
 
 { #category : '*FamixReplication' }
@@ -75,14 +82,16 @@ FamixTSourceEntity >> mergePossibleDuplications [
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> removeReplica: aReplica [
-	self containsReplicas ifTrue: [ self replicas remove: aReplica ]
+
+	self cacheAt: #replicas ifPresent: [ :collection | collection remove: aReplica ]
 ]
 
 { #category : '*FamixReplication' }
 FamixTSourceEntity >> replicas [
+	"If the entity does not have replicats, return en empty collection that we will not save to not add overhead to the memory"
 
 	<FMProperty: #replicas type: #FamixReplica>
 	<FMComment: 'A collection of fragments of cloned code found in this program'>
 	<derived>
-	^ self cacheAt: #replicas ifAbsentPut: [ OrderedCollection new ]
+	^ self cacheAt: #replicas ifAbsent: [ OrderedCollection new ]
 ]
