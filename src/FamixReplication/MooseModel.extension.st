@@ -6,9 +6,9 @@ MooseModel >> allBehaviouralsWithDuplicatedCode [
 	<navigation: 'All executables with duplicated code'>
 	^ self cacheAt: #allBehaviouralsWithDuplicatedCode ifAbsent: [
 			  'Compute allBehaviouralsWithDuplicatedCode' record. "Ensure the replication detection was run."
-			  self replicationManager ifNil: [ MooseUnavailableMetric ].
-
-			  self allModelBehaviourals select: #containsReplicas ]
+			  self replicationManager
+				  ifNotNil: [ self allModelBehaviourals select: #containsReplicas ]
+				  ifNil: [ MooseUnavailableMetric ] ]
 ]
 
 { #category : '*FamixReplication' }
@@ -17,9 +17,9 @@ MooseModel >> allContainersWithDuplicatedCode [
 	<navigation: 'All containers with duplicated code'>
 	^ self cacheAt: #allContainersWithDuplicatedCode ifAbsent: [
 			  'Compute allContainersWithDuplicatedCode' record. "Ensure the replication detection was run."
-			  self replicationManager ifNil: [ MooseUnavailableMetric ].
-
-			  self allModelContainers select: #containsReplicas ]
+			  self replicationManager
+				  ifNotNil: [ self allModelContainers select: #containsReplicas ]
+				  ifNil: [ MooseUnavailableMetric ] ]
 ]
 
 { #category : '*FamixReplication' }
@@ -84,14 +84,15 @@ MooseModel >> importReplicationFrom: file [
 
 { #category : '*FamixReplication' }
 MooseModel >> initializeReplicationManager [
-	self clearReplicationManager.
 
 	^ self replicationDetectionConfiguration
-		ifNil: [ 'No duplication configuration detected. Skip detection.' record.
-			nil ]
-		ifNotNil: [ :config | 
-			'Initialize replication detector' record.
-			(FamixRepDetector runOn: self entitiesForReplicationDetection with: config) in: [ :manager | self replicationManager: manager ] ]
+		  ifNil: [
+				  'No duplication configuration detected. Skip detection.' record.
+				  nil ]
+		  ifNotNil: [ :config |
+				  'Initialize replication detector' record.
+				  self clearReplicationManager.
+				  (FamixRepDetector runOn: self entitiesForReplicationDetection with: config) in: [ :manager | self replicationManager: manager ] ]
 ]
 
 { #category : '*FamixReplication' }
