@@ -210,7 +210,10 @@ FamixReplicatedFragment >> remove: aReplica [
 
 { #category : 'accessing' }
 FamixReplicatedFragment >> replicas [
-	<navigation: 'Members of this clone fragment'>
+
+	<FMProperty: #replicas type: #FamixReplica>
+	<multivalued>
+	<FMComment: 'Members of this clone fragment'>
 	^ replicas ifNil: [ replicas := OrderedCollection new ]
 ]
 
