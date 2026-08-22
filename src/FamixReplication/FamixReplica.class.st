@@ -119,7 +119,9 @@ FamixReplica >> concernSameSubjectAs: anotherReplica [
 
 { #category : 'accessing' }
 FamixReplica >> endLine [
-	<navigation: 'Ending line of the replica'>
+
+	<FMProperty: #endLine type: #Number>
+	<FMComment: 'Ending line of the replica'>
 	^ endLine
 ]
 
@@ -130,7 +132,9 @@ FamixReplica >> endLine: anObject [
 
 { #category : 'accessing' }
 FamixReplica >> entity [
-	<navigation: 'The entity of this replica'>
+
+	<FMProperty: #entity type: #Object>
+	<FMComment: 'The entity of this replica'>
 	^ entity
 ]
 
@@ -146,7 +150,10 @@ FamixReplica >> entitySourceCode [
 
 { #category : 'accessing' }
 FamixReplica >> fileAnchor [
-	<navigation: 'The file of the entity that contains the duplicated code fragment'>
+
+	<FMProperty: #fileAnchor type: #FamixTSourceAnchor>
+	<derived>
+	<FMComment: 'The file of the entity that contains the duplicated code fragment'>
 	^ fileAnchor
 ]
 
@@ -227,7 +234,9 @@ FamixReplica >> replicatedFragment: aReplicatedFragment [
 
 { #category : 'accessing' }
 FamixReplica >> startLine [
-	<navigation: 'Starting line of the replica'>
+
+	<FMProperty: #startLine type: #Number>
+	<FMComment: 'Starting line of the replica'>
 	^ startLine
 ]
 
