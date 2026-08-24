@@ -151,7 +151,7 @@ FamixReplica >> entitySourceCode [
 { #category : 'accessing' }
 FamixReplica >> fileAnchor [
 
-	<FMProperty: #fileAnchor type: #FamixTSourceAnchor>
+	<FMProperty: #fileAnchor type: #Object> "<= This should be FamixTSourceAnchor but I am included by default in all MMs and Famix is not. So to make it work I declare I point an Object instead of a FamixTSourceAnchor."
 	<derived>
 	<FMComment: 'The file of the entity that contains the duplicated code fragment'>
 	^ fileAnchor
